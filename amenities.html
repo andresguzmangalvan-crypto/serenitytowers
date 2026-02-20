@@ -1,233 +1,334 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr-CA">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amenities - Serenity Towers</title>
-    <style>
-        /* VARIABLES DE COLOR - Consistentes con Marzipano */
-        :root {
-            --bg-color:  rgba(58, 68, 84, 0.9);
-            --panel-color: rgba(58, 68, 84, 0.9);
-            --accent-border: rgba(255, 255, 255, 0.1);
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Commodités — Serenity Towers</title>
 
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: var(--bg-color);
-            color: white;
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            overflow: hidden;
-        }
+  <link rel="stylesheet" href="vendor/reset.min.css">
+  <link rel="stylesheet" href="style.css">
 
-        /* BARRA SUPERIOR FIJA */
-        header {
-            height: 45px;
-            background-color: rgba(0, 0, 0, 0.6);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-bottom: 1px solid var(--accent-border);
-            position: relative;
-            z-index: 20;
-        }
+  <style>
+    body {
+      background: radial-gradient(circle, #2c343f 0%, #1a1e24 100%);
+      overflow: hidden;
+    }
 
-        .back-btn {
-            position: absolute;
-            left: 20px;
-            color: #ccc;
-            text-decoration: none;
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: color 0.3s;
-        }
+    #titleBar {
+      position: sticky;
+      top: 0;
+    }
 
-        .back-btn:hover { color: white; }
+    .amenities-layout {
+      height: calc(100vh - 56px);
+      display: grid;
+      grid-template-columns: 1fr 260px;
+    }
 
-        .fixed-title {
-            font-weight: bold;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            font-size: 14px;
-        }
+    .mobile .amenities-layout {
+      height: calc(100vh - 64px);
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr auto;
+    }
 
-        /* RECTÁNGULO DEL LOGO (Derecha, bajo la barra) */
-        #amenities-logo-container {
-            position: absolute;
-            top: 45px;
-            right: 0;
-            width: 220px;
-            background-color: var(--panel-color);
-            padding: 20px 0;
-            display: flex;
-            justify-content: center;
-            border-bottom: 1px solid var(--accent-border);
-            border-left: 1px solid var(--accent-border);
-            z-index: 15;
-            box-shadow: -2px 2px 10px rgba(0,0,0,0.3);
-        }
+    .gallery-main {
+      position: relative;
+      display: grid;
+      grid-template-rows: 1fr auto;
+      align-items: center;
+      justify-items: center;
+      overflow: hidden;
+    }
 
-        #amenities-logo-container img {
-            width: 75%;
-            height: auto;
-        }
+    .image-wrapper {
+      width: min(1100px, 86%);
+      height: min(70vh, 720px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-        /* ÁREA DE LA GALERÍA */
-        .gallery-main {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            background: radial-gradient(circle, #2c343f 0%, #1a1e24 100%);
-        }
+    .main-image {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 14px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+      opacity: 0;
+      transform: scale(0.98);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+      touch-action: pan-y;
+    }
 
-        .image-wrapper {
-            width: 80%;
-            height: 70vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+    .nav-btn {
+      position: absolute;
+      top: 45%;
+      transform: translateY(-50%);
+      background: rgba(20, 24, 32, 0.6);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: white;
+      width: 60px;
+      height: 90px;
+      font-size: 28px;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+    }
 
-        .main-image {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
-            border-radius: 2px;
-            transition: opacity 0.4s ease-in-out;
-            opacity: 0;
-        }
+    .prev { left: 0; border-radius: 0 14px 14px 0; }
+    .next { right: 0; border-radius: 14px 0 0 14px; }
 
-        /* BOTONES DE NAVEGACIÓN */
-        .nav-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.4);
-            color: white;
-            border: none;
-            width: 60px;
-            height: 80px;
-            cursor: pointer;
-            font-size: 30px;
-            transition: background 0.3s, width 0.2s;
-            z-index: 10;
-        }
+    .thumbs {
+      width: min(1100px, 86%);
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding: 10px;
+    }
 
-        .nav-btn:hover { background: var(--panel-color); width: 70px; }
-        .prev { left: 0; border-radius: 0 5px 5px 0; }
-        .next { right: 0; border-radius: 5px 0 0 5px; }
+    .thumb {
+      width: 95px;
+      height: 65px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.1);
+      cursor: pointer;
+      opacity: 0.7;
+      transition: 0.2s;
+    }
 
-        /* PIE DE PÁGINA (INFO) */
-        footer {
-            height: 100px;
-            background: var(--panel-color);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            border-top: 1px solid var(--accent-border);
-            z-index: 20;
-        }
+    .thumb.active {
+      opacity: 1;
+      border-color: rgba(255,255,255,0.3);
+    }
 
-        #image-caption {
-            font-size: 18px;
-            font-weight: 300;
-            margin-bottom: 8px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
 
-        #counter {
-            font-size: 12px;
-            color: rgba(255,255,255,0.5);
-            background: rgba(0,0,0,0.2);
-            padding: 4px 12px;
-            border-radius: 10px;
-        }
-    </style>
+    .amenities-panel {
+      background: rgba(20,24,32,0.75);
+      backdrop-filter: blur(10px);
+      border-left: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .panel-header {
+      padding: 18px;
+      text-align: center;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .panel-header img {
+      width: 60px;
+      margin-bottom: 10px;
+    }
+
+    .panel-title {
+      font-weight: 800;
+      letter-spacing: 1px;
+      font-size: 14px;
+      text-transform: uppercase;
+    }
+
+    .panel-subtitle {
+      font-size: 12px;
+      color: rgba(255,255,255,0.7);
+    }
+
+    .panel-body {
+      padding: 16px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .caption {
+      background: rgba(0,0,0,0.25);
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.1);
+      font-size: 13px;
+    }
+
+    .caption .label {
+      display: block;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 6px;
+    }
+
+    .counter {
+      text-align: center;
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
+    }
+
+    .brochure-btn {
+      padding: 12px;
+      text-align: center;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.06);
+      text-transform: uppercase;
+      font-size: 12px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .brochure-btn:hover {
+      background: rgba(255,255,255,0.12);
+    }
+
+    .hint {
+      margin-top: auto;
+      padding: 14px;
+      text-align: center;
+      font-size: 11px;
+      color: rgba(255,255,255,0.6);
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .hint kbd {
+      padding: 2px 6px;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.2);
+      font-size: 11px;
+    }
+  </style>
 </head>
+
 <body>
 
-    <header>
-        <a href="index.html" class="back-btn">❮ Retour</a>
-        <span class="fixed-title">Aminities</span>
-    </header>
+<header id="titleBar">
+  <div class="tb-left">
+    <div class="brand">
+      <img class="brand-logo" src="img/serenity.png">
+      <div class="brand-text">
+        <div class="brand-name">NordImmersive</div>
+        <div class="brand-tagline">Expériences immersives 3D — Montréal</div>
+      </div>
+    </div>
+  </div>
 
-    <div id="amenities-logo-container">
-        <img src="img/serenity.png" alt="Logo Empresa">
+  <div class="tb-center">
+    <div class="unit-title">Commodités</div>
+  </div>
+
+  <div class="tb-right">
+    <a class="tb-icon" href="index.html">❮</a>
+  </div>
+</header>
+
+<div class="amenities-layout">
+
+  <main class="gallery-main">
+    <button class="nav-btn prev" onclick="changeImage(-1)">❮</button>
+
+    <div class="image-wrapper">
+      <img id="display-img" class="main-image">
     </div>
 
-    <main class="gallery-main">
-        <button class="nav-btn prev" onclick="changeImage(-1)">❮</button>
-        
-        <div class="image-wrapper">
-            <img id="display-img" class="main-image" src="" alt="Amenities Gallery">
-        </div>
+    <button class="nav-btn next" onclick="changeImage(1)">❯</button>
 
-        <button class="nav-btn next" onclick="changeImage(1)">❯</button>
-    </main>
+    <div class="thumbs" id="thumbs-container"></div>
+  </main>
 
-    <footer>
-        <div id="image-caption">Chargement...</div>
-        <div id="counter">0 / 0</div>
-    </footer>
+  <aside class="amenities-panel">
+    <div class="panel-header">
+      <img src="img/serenity.png">
+      <div class="panel-title">Serenity Towers</div>
+      <div class="panel-subtitle">Unité 3 1/2 — XX10</div>
+    </div>
 
-    <script>
-        // --- CONFIGURACIÓN DE IMÁGENES ---
-        // Cambia estas rutas por las carpetas y archivos reales de tu proyecto
-        const images = [
-            { src: 'img/amenity1.jpg', title: 'Piscina Panorámica' },
-            { src: 'img/amenity2.jpg', title: 'Gimnasio Nivel 5' },
-            { src: 'img/amenity3.jpg', title: 'Sala de Eventos' },
-            { src: 'img/amenity4.jpg', title: 'Terraza BBQ' }
-        ];
+    <div class="panel-body">
+      <div class="caption">
+        <span class="label">Commodité</span>
+        <div id="image-caption">Chargement…</div>
+      </div>
 
-        let currentIndex = 0;
-        const imgElement = document.getElementById('display-img');
-        const captionElement = document.getElementById('image-caption');
-        const counterElement = document.getElementById('counter');
+      <div id="counter" class="counter">0 / 0</div>
 
-        function updateGallery() {
-            // Desvanecer imagen actual
-            imgElement.style.opacity = 0;
-            
-            setTimeout(() => {
-                // Cambiar contenido
-                imgElement.src = images[currentIndex].src;
-                captionElement.innerText = images[currentIndex].title;
-                counterElement.innerText = (currentIndex + 1) + " / " + images.length;
-                
-                // Mostrar nueva imagen
-                imgElement.style.opacity = 1;
-            }, 400);
-        }
+      <a href="brochure-serenity-towers-fr.pdf" target="_blank" class="brochure-btn">
+        Télécharger la brochure (PDF)
+      </a>
+    </div>
 
-        function changeImage(step) {
-            currentIndex += step;
-            if (currentIndex >= images.length) currentIndex = 0;
-            if (currentIndex < 0) currentIndex = images.length - 1;
-            updateGallery();
-        }
+    <div class="hint">
+      Raccourcis : <kbd>←</kbd> <kbd>→</kbd> • Quitter : <kbd>Esc</kbd>
+    </div>
+  </aside>
 
-        // Iniciar galería
-        window.onload = () => {
-            if(images.length > 0) updateGallery();
-        };
+</div>
 
-        // Soporte para teclado
-        document.addEventListener('keydown', (e) => {
-            if (e.key === "ArrowRight") changeImage(1);
-            if (e.key === "ArrowLeft") changeImage(-1);
-            if (e.key === "Escape") window.location.href = 'index.html';
-        });
-    </script>
+<script>
+const images = [
+  { src: 'img/amenity1.jpg', title: 'Piscine panoramique' },
+  { src: 'img/amenity2.jpg', title: 'Salle d’entraînement moderne' },
+  { src: 'img/amenity3.jpg', title: 'Salle communautaire' },
+  { src: 'img/amenity4.jpg', title: 'Terrasse extérieure avec BBQ' }
+];
+
+let currentIndex = 0;
+const imgElement = document.getElementById('display-img');
+const captionElement = document.getElementById('image-caption');
+const counterElement = document.getElementById('counter');
+const thumbsContainer = document.getElementById('thumbs-container');
+
+function updateGallery() {
+  const item = images[currentIndex];
+  imgElement.style.opacity = 0;
+  setTimeout(() => {
+    imgElement.src = item.src;
+    captionElement.textContent = item.title;
+    counterElement.textContent = (currentIndex + 1) + " / " + images.length;
+    document.querySelectorAll('.thumb').forEach((t,i)=>{
+      t.classList.toggle('active', i===currentIndex);
+    });
+    imgElement.onload = ()=>{
+      imgElement.style.opacity = 1;
+      imgElement.style.transform = "scale(1)";
+    };
+  },200);
+}
+
+function changeImage(step){
+  currentIndex += step;
+  if(currentIndex >= images.length) currentIndex = 0;
+  if(currentIndex < 0) currentIndex = images.length - 1;
+  updateGallery();
+}
+
+images.forEach((img,i)=>{
+  const div = document.createElement('div');
+  div.className="thumb";
+  div.innerHTML=`<img src="${img.src}">`;
+  div.onclick=()=>{currentIndex=i;updateGallery();};
+  thumbsContainer.appendChild(div);
+});
+
+updateGallery();
+
+document.addEventListener('keydown',e=>{
+  if(e.key==="ArrowRight") changeImage(1);
+  if(e.key==="ArrowLeft") changeImage(-1);
+  if(e.key==="Escape") window.location.href="index.html";
+});
+
+// Swipe mobile
+let startX=0;
+imgElement.addEventListener('touchstart',e=>{startX=e.touches[0].clientX;});
+imgElement.addEventListener('touchend',e=>{
+  let diff=e.changedTouches[0].clientX-startX;
+  if(Math.abs(diff)>50){
+    if(diff<0) changeImage(1);
+    else changeImage(-1);
+  }
+});
+</script>
+
 </body>
 </html>
