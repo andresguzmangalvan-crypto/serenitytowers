@@ -8,8 +8,6 @@
 
   // Grab elements from DOM.
   var panoElement = document.querySelector('#pano');
-
-  // IMPORTANT: now there is only one #titleBar, and sceneName exists (hidden)
   var sceneNameElement = document.querySelector('#titleBar .sceneName');
   var sidebarSceneNameElement = document.querySelector('#sidebar-scene-name');
 
@@ -42,7 +40,7 @@
   window.addEventListener('touchstart', function() {
     document.body.classList.remove('no-touch');
     document.body.classList.add('touch');
-  });
+  }, { passive: true });
 
   // Use tooltip fallback mode on IE < 11.
   if (bowser.msie && parseFloat(bowser.version) < 11) {
@@ -61,13 +59,16 @@
 
   // Create scenes.
   var scenes = data.scenes.map(function(sceneData) {
-    var urlPrefix = "tiles";
+    // ✅ IMPORTANT: relative path (robust on subpaths / Vite / hosting)
+    var urlPrefix = "./tiles";
+
     var source = Marzipano.ImageUrlSource.fromString(
       urlPrefix + "/" + sceneData.id + "/{z}/{f}/{y}/{x}.jpg",
       { cubeMapPreviewUrl: urlPrefix + "/" + sceneData.id + "/preview.jpg" }
     );
 
     var geometry = new Marzipano.CubeGeometry(sceneData.levels);
+
     var limiter = Marzipano.RectilinearView.limit.traditional(
       sceneData.faceSize,
       100 * Math.PI / 180,
@@ -102,7 +103,7 @@
     };
   });
 
-  // Autorotate
+  // Set up autorotate, if enabled.
   var autorotate = Marzipano.autorotate({
     yawSpeed: 0.03,
     targetPitch: 0,
@@ -115,7 +116,7 @@
 
   autorotateToggleElement.addEventListener('click', toggleAutorotate);
 
-  // Fullscreen
+  // Fullscreen mode.
   if (screenfull.enabled && data.settings.fullscreenButton) {
     document.body.classList.add('fullscreen-enabled');
     fullscreenToggleElement.addEventListener('click', function() {
@@ -132,7 +133,7 @@
     document.body.classList.add('fullscreen-disabled');
   }
 
-  // Scene list toggle
+  // Scene list toggle.
   sceneListToggleElement.addEventListener('click', toggleSceneList);
 
   // Start with the scene list open on desktop.
@@ -140,19 +141,17 @@
     showSceneList();
   }
 
-  // Scene switch from list
+  // Link scene list items to scene switches.
   scenes.forEach(function(sceneObj) {
     var el = document.querySelector('#sceneList .scene[data-id="' + sceneObj.data.id + '"]');
     if (!el) return;
     el.addEventListener('click', function() {
       switchScene(sceneObj);
-      if (document.body.classList.contains('mobile')) {
-        hideSceneList();
-      }
+      if (document.body.classList.contains('mobile')) hideSceneList();
     });
   });
 
-  // DOM elements for view controls.
+  // View controls.
   var viewUpElement = document.querySelector('#viewUp');
   var viewDownElement = document.querySelector('#viewDown');
   var viewLeftElement = document.querySelector('#viewLeft');
@@ -160,11 +159,9 @@
   var viewInElement = document.querySelector('#viewIn');
   var viewOutElement = document.querySelector('#viewOut');
 
-  // Dynamic parameters for controls.
   var velocity = 0.7;
   var friction = 3;
 
-  // Associate view controls with elements.
   var controls = viewer.controls();
   controls.registerMethod('upElement',    new Marzipano.ElementPressControlMethod(viewUpElement,   'y', -velocity, friction), true);
   controls.registerMethod('downElement',  new Marzipano.ElementPressControlMethod(viewDownElement, 'y',  velocity, friction), true);
@@ -174,7 +171,6 @@
   controls.registerMethod('outElement',   new Marzipano.ElementPressControlMethod(viewOutElement,  'zoom',  velocity, friction), true);
 
   function sanitize(s) {
-    // Safer than single replace()
     return String(s)
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
@@ -193,21 +189,15 @@
   function updateSceneName(sceneObj) {
     var safeName = sanitize(sceneObj.data.name);
 
-    // Marzipano default element (kept in DOM, hidden by CSS)
     if (sceneNameElement) sceneNameElement.innerHTML = safeName;
-
-    // Mirror to sidebar (visible)
     if (sidebarSceneNameElement) sidebarSceneNameElement.textContent = sceneObj.data.name || '—';
   }
 
   function updateSceneList(sceneObj) {
     for (var i = 0; i < sceneElements.length; i++) {
       var el = sceneElements[i];
-      if (el.getAttribute('data-id') === sceneObj.data.id) {
-        el.classList.add('current');
-      } else {
-        el.classList.remove('current');
-      }
+      if (el.getAttribute('data-id') === sceneObj.data.id) el.classList.add('current');
+      else el.classList.remove('current');
     }
   }
 
@@ -252,7 +242,7 @@
     wrapper.classList.add('hotspot', 'link-hotspot');
 
     var icon = document.createElement('img');
-    icon.src = 'img/link.png';
+    icon.src = './img/link.png';
     icon.classList.add('link-hotspot-icon');
 
     var transformProperties = ['-ms-transform', '-webkit-transform', 'transform'];
@@ -261,14 +251,16 @@
     }
 
     wrapper.addEventListener('click', function() {
-      switchScene(findSceneById(hotspot.target));
+      var target = findSceneById(hotspot.target);
+      if (target) switchScene(target);
     });
 
     stopTouchAndScrollEventPropagation(wrapper);
 
     var tooltip = document.createElement('div');
     tooltip.classList.add('hotspot-tooltip', 'link-hotspot-tooltip');
-    tooltip.innerHTML = sanitize(findSceneDataById(hotspot.target).name);
+    var targetData = findSceneDataById(hotspot.target);
+    tooltip.innerHTML = sanitize(targetData ? targetData.name : '');
 
     wrapper.appendChild(icon);
     wrapper.appendChild(tooltip);
@@ -286,7 +278,7 @@
     iconWrapper.classList.add('info-hotspot-icon-wrapper');
 
     var icon = document.createElement('img');
-    icon.src = 'img/info.png';
+    icon.src = './img/info.png';
     icon.classList.add('info-hotspot-icon');
     iconWrapper.appendChild(icon);
 
@@ -302,7 +294,7 @@
     closeWrapper.classList.add('info-hotspot-close-wrapper');
 
     var closeIcon = document.createElement('img');
-    closeIcon.src = 'img/close.png';
+    closeIcon.src = './img/close.png';
     closeIcon.classList.add('info-hotspot-close-icon');
     closeWrapper.appendChild(closeIcon);
 
@@ -337,7 +329,7 @@
   function stopTouchAndScrollEventPropagation(element) {
     var events = ['touchstart', 'touchmove', 'touchend', 'touchcancel', 'wheel', 'mousewheel'];
     for (var i = 0; i < events.length; i++) {
-      element.addEventListener(events[i], function(e) { e.stopPropagation(); });
+      element.addEventListener(events[i], function(e) { e.stopPropagation(); }, { passive: true });
     }
   }
 
@@ -355,13 +347,11 @@
     return null;
   }
 
-  // Display initial scene
+  // Display initial scene.
   switchScene(scenes[0]);
 })();
 
-
-// ====== Custom UI functions (your sidebar behaviors) ======
-
+// ===== Custom sidebar functions =====
 function toggleCompanyInfo() {
   var info = document.getElementById("company-info");
   if (!info) return;
