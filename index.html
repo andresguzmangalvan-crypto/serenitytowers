@@ -7,18 +7,19 @@
         content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" />
   <style>@-ms-viewport{ width: device-width; }</style>
 
-  <link rel="stylesheet" href="vendor/reset.min.css">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="./vendor/reset.min.css">
+  <link rel="stylesheet" href="./style.css">
 </head>
 
 <body class="multiple-scenes">
+  <!-- Marzipano pano -->
   <div id="pano"></div>
 
-  <!-- Top bar (premium + corporate) -->
-  <header id="titleBar" role="banner">
+  <!-- TOP BAR premium (single #titleBar) -->
+  <header id="titleBar" role="banner" aria-label="Barre supérieure">
     <div class="tb-left">
       <div class="brand">
-        <img class="brand-logo" src="img/serenity.png" alt="Serenity Towers">
+        <img class="brand-logo" src="./img/serenity.png" alt="Serenity Towers">
         <div class="brand-text">
           <div class="brand-name">NordImmersive</div>
           <div class="brand-tagline">Expériences immersives 3D — Montréal</div>
@@ -29,42 +30,58 @@
     <div class="tb-center">
       <div class="unit-title">Unité 3&nbsp;1/2 — XX10</div>
 
-      <!-- Important: Marzipano updates this element.
-           We keep it in the DOM (hidden visually) and mirror it to the sidebar via JS. -->
+      <!-- Marzipano writes here (keep in DOM). We also mirror it to the sidebar. -->
       <div class="sceneName" aria-hidden="true"></div>
     </div>
 
     <div class="tb-right">
       <div class="tb-actions">
-        <!-- Buttons are still the same IDs Marzipano expects -->
         <a href="javascript:void(0)" id="autorotateToggle" class="tb-icon" aria-label="Auto-rotation">
-          <img class="icon off" src="img/play.png" alt="">
-          <img class="icon on" src="img/pause.png" alt="">
+          <img class="icon off" src="./img/play.png" alt="">
+          <img class="icon on" src="./img/pause.png" alt="">
         </a>
 
         <a href="javascript:void(0)" id="fullscreenToggle" class="tb-icon" aria-label="Plein écran">
-          <img class="icon off" src="img/fullscreen.png" alt="">
-          <img class="icon on" src="img/windowed.png" alt="">
+          <img class="icon off" src="./img/fullscreen.png" alt="">
+          <img class="icon on" src="./img/windowed.png" alt="">
         </a>
 
         <a href="javascript:void(0)" id="sceneListToggle" class="tb-icon" aria-label="Liste des scènes">
-          <img class="icon off" src="img/expand.png" alt="">
-          <img class="icon on" src="img/collapse.png" alt="">
+          <img class="icon off" src="./img/expand.png" alt="">
+          <img class="icon on" src="./img/collapse.png" alt="">
         </a>
       </div>
     </div>
   </header>
 
-  <!-- Right side panel -->
-  <div id="side-panel-container" class="expanded" aria-label="Panneau d'information">
+  <!-- LEFT scene list -->
+  <div id="sceneList" aria-label="Scènes">
+    <ul class="scenes">
+      <!-- Mantén data-id EXACTO como en APP_DATA -->
+      <a href="javascript:void(0)" class="scene" data-id="0-entrance1"><li class="text">Entrée 1</li></a>
+      <a href="javascript:void(0)" class="scene" data-id="1-entrace2"><li class="text">Entrée 2</li></a>
+      <a href="javascript:void(0)" class="scene" data-id="2-laundry"><li class="text">Buanderie</li></a>
+      <a href="javascript:void(0)" class="scene" data-id="3-kitchen"><li class="text">Cuisine</li></a>
+      <a href="javascript:void(0)" class="scene" data-id="4-salon-centre"><li class="text">Salon</li></a>
+      <a href="javascript:void(0)" class="scene" data-id="5-aisle2"><li class="text">Couloir 2</li></a>
+      <a href="javascript:void(0)" class="scene" data-id="6-balcony"><li class="text">Balcon</li></a>
+      <a href="javascript:void(0)" class="scene" data-id="7-bedroom"><li class="text">Chambre</li></a>
+      <a href="javascript:void(0)" class="scene" data-id="8-bathroom"><li class="text">Salle de bain</li></a>
+      <a href="javascript:void(0)" class="scene" data-id="9-aisle"><li class="text">Couloir</li></a>
+    </ul>
+  </div>
+
+  <!-- RIGHT sidebar -->
+  <div id="side-panel-container" class="expanded" aria-label="Panneau latéral">
     <button id="toggle-sidebar" type="button" aria-label="Ouvrir/fermer le panneau" onclick="toggleSidebar()">
       <span id="toggle-icon">❯</span>
     </button>
 
     <aside id="right-sidebar">
       <div class="sidebar-header">
-        <img src="img/serenity.png" alt="Serenity Towers">
+        <img src="./img/serenity.png" alt="Serenity Towers">
         <div class="sidebar-title">Serenity Towers</div>
+
         <div class="sidebar-scene">
           <span class="sidebar-scene-label">Pièce</span>
           <span id="sidebar-scene-name" class="sidebar-scene-name">—</span>
@@ -103,35 +120,21 @@
     </aside>
   </div>
 
-  <!-- Scene list (left) -->
-  <div id="sceneList" aria-label="Scènes">
-    <ul class="scenes">
-      <a href="javascript:void(0)" class="scene" data-id="0-entrance1"><li class="text">Entrée 1</li></a>
-      <a href="javascript:void(0)" class="scene" data-id="1-entrace2"><li class="text">Entrée 2</li></a>
-      <a href="javascript:void(0)" class="scene" data-id="2-laundry"><li class="text">Buanderie</li></a>
-      <a href="javascript:void(0)" class="scene" data-id="3-kitchen"><li class="text">Cuisine</li></a>
-      <a href="javascript:void(0)" class="scene" data-id="4-salon-centre"><li class="text">Salon</li></a>
-      <a href="javascript:void(0)" class="scene" data-id="5-aisle2"><li class="text">Couloir 2</li></a>
-      <a href="javascript:void(0)" class="scene" data-id="6-balcony"><li class="text">Balcon</li></a>
-      <a href="javascript:void(0)" class="scene" data-id="7-bedroom"><li class="text">Chambre</li></a>
-      <a href="javascript:void(0)" class="scene" data-id="8-bathroom"><li class="text">Salle de bain</li></a>
-      <a href="javascript:void(0)" class="scene" data-id="9-aisle"><li class="text">Couloir</li></a>
-    </ul>
-  </div>
+  <!-- View control buttons (optional) -->
+  <a href="javascript:void(0)" id="viewUp" class="viewControlButton viewControlButton-1"><img class="icon" src="./img/up.png" alt=""></a>
+  <a href="javascript:void(0)" id="viewDown" class="viewControlButton viewControlButton-2"><img class="icon" src="./img/down.png" alt=""></a>
+  <a href="javascript:void(0)" id="viewLeft" class="viewControlButton viewControlButton-3"><img class="icon" src="./img/left.png" alt=""></a>
+  <a href="javascript:void(0)" id="viewRight" class="viewControlButton viewControlButton-4"><img class="icon" src="./img/right.png" alt=""></a>
+  <a href="javascript:void(0)" id="viewIn" class="viewControlButton viewControlButton-5"><img class="icon" src="./img/plus.png" alt=""></a>
+  <a href="javascript:void(0)" id="viewOut" class="viewControlButton viewControlButton-6"><img class="icon" src="./img/minus.png" alt=""></a>
 
-  <!-- View controls (optional) -->
-  <a href="javascript:void(0)" id="viewUp" class="viewControlButton viewControlButton-1"><img class="icon" src="img/up.png" alt=""></a>
-  <a href="javascript:void(0)" id="viewDown" class="viewControlButton viewControlButton-2"><img class="icon" src="img/down.png" alt=""></a>
-  <a href="javascript:void(0)" id="viewLeft" class="viewControlButton viewControlButton-3"><img class="icon" src="img/left.png" alt=""></a>
-  <a href="javascript:void(0)" id="viewRight" class="viewControlButton viewControlButton-4"><img class="icon" src="img/right.png" alt=""></a>
-  <a href="javascript:void(0)" id="viewIn" class="viewControlButton viewControlButton-5"><img class="icon" src="img/plus.png" alt=""></a>
-  <a href="javascript:void(0)" id="viewOut" class="viewControlButton viewControlButton-6"><img class="icon" src="img/minus.png" alt=""></a>
+  <!-- Vendor -->
+  <script src="./vendor/screenfull.min.js"></script>
+  <script src="./vendor/bowser.min.js"></script>
+  <script src="./vendor/marzipano.js"></script>
 
-  <script src="vendor/screenfull.min.js"></script>
-  <script src="vendor/bowser.min.js"></script>
-  <script src="vendor/marzipano.js"></script>
-
-  <script src="data.js"></script>
-  <script src="index.js"></script>
+  <!-- Data + app -->
+  <script src="./data.js"></script>
+  <script src="./index.js"></script>
 </body>
 </html>
