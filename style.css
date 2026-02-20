@@ -1,18 +1,20 @@
+/* Base reset / behavior (kept from Marzipano style) */
 * {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none;
+
   -ms-text-size-adjust: none;
   -moz-text-size-adjust: none;
   -webkit-text-size-adjust: none;
   text-size-adjust: none;
+
   -webkit-user-drag: none;
   -webkit-touch-callout: none;
   -ms-content-zooming: none;
+
   -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
@@ -22,7 +24,7 @@ html, body {
   padding: 0;
   margin: 0;
   overflow: hidden;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: system-ui, -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 16px;
   background-color: #000;
   color: #fff;
@@ -33,751 +35,422 @@ a, a:hover, a:active, a:visited {
   color: inherit;
 }
 
+/* Pano */
 #pano {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   overflow: hidden;
 }
 
+/* =========================================================
+   PREMIUM TOP BAR
+   ========================================================= */
 #titleBar {
   position: absolute;
   top: 0;
   left: 0;
-  right: 40px;
-  height: 40px;
-  text-align: center;
+  right: 0;
+  height: 56px;
+  z-index: 4000;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+
+  background: rgba(20, 24, 32, 0.65);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
 .mobile #titleBar {
-  height: 50px;
-  right: 50px;
+  height: 64px;
+  padding: 12px;
 }
 
-/* If there is a fullscreen button the title bar must make space for it */
-body.fullscreen-enabled #titleBar {
-  right: 80px;
+/* Left brand */
+.tb-left .brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-body.fullscreen-enabled.mobile #titleBar {
-  right: 100px;
+.brand-logo {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  object-fit: contain;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
 }
 
-/* If there are multiple scenes the title bar must make space for the scene list toggle */
-body.multiple-scenes #titleBar {
-  left: 40px;
+.brand-text { line-height: 1.05; }
+.brand-name {
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  font-size: 14px;
+}
+.brand-tagline {
+  font-size: 11px;
+  color: rgba(255,255,255,0.70);
 }
 
-body.multiple-scenes.mobile #titleBar {
-  left: 50px;
+.tb-center {
+  text-align: center;
+  display: grid;
+  justify-items: center;
+  gap: 2px;
 }
 
+.unit-title {
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  font-size: 14px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.96);
+}
+
+/* Marzipano dynamic scene name lives here but hidden visually
+   (we mirror it to the sidebar) */
 #titleBar .sceneName {
-  width: 100%;
-  height: 100%;
-  line-height: 30px;
-  padding: 5px;
-  background-color: rgb(58,68,84);
-  background-color: rgba(58,68,84,0.8);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-
-  -moz-user-select: text;
-  -webkit-user-select: text;
-  -ms-user-select: text;
-  user-select: text;
-}
-
-.mobile #titleBar .sceneName {
-  line-height: 40px;
-}
-
-#fullscreenToggle {
-  display: none;
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 40px;
-  height: 40px;
-  padding: 5px;
-  background-color: rgb(103,115,131);
-  background-color: rgba(103,115,131,0.8);
-}
-
-.mobile #fullscreenToggle {
-  width: 50px;
-  height: 50px;
-}
-
-body.fullscreen-enabled #fullscreenToggle {
-  display: block;
-}
-
-#fullscreenToggle .icon {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  width: 30px;
-  height: 30px;
-}
-
-.mobile #fullscreenToggle .icon {
-  top: 10px;
-  right: 10px;
-}
-
-#fullscreenToggle .icon.on {
   display: none;
 }
 
-#fullscreenToggle .icon.off {
-  display: block;
+/* Right actions (Marzipano buttons) */
+.tb-right { justify-self: end; }
+.tb-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-#fullscreenToggle.enabled .icon.on {
-  display: block;
+.tb-icon {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
 }
 
-#fullscreenToggle.enabled .icon.off {
-  display: none;
+.tb-icon:hover {
+  background: rgba(255,255,255,0.10);
 }
 
-#autorotateToggle {
-  display: block;
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 40px;
-  height: 40px;
-  padding: 5px;
-  background-color: rgb(103,115,131);
-  background-color: rgba(103,115,131,0.8);
+.tb-icon .icon {
+  width: 18px;
+  height: 18px;
 }
 
-.mobile #autorotateToggle {
-  width: 50px;
-  height: 50px;
+/* Toggle icon states (same logic as Marzipano CSS expected) */
+#fullscreenToggle, #autorotateToggle, #sceneListToggle {
+  position: static; /* moved into top bar grid */
+  padding: 0;
 }
+#fullscreenToggle { display: none; }
+body.fullscreen-enabled #fullscreenToggle { display: inline-flex; }
 
-/* If there is a fullscreen button, autorotate must placed a bit to the left */
-body.fullscreen-enabled #autorotateToggle {
-  right: 40px;
-}
-
-body.fullscreen-enabled.mobile #autorotateToggle {
-  right: 50px;
-}
-
-#autorotateToggle .icon {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  width: 30px;
-  height: 30px;
-}
-
-.mobile #autorotateToggle .icon {
-  top: 10px;
-  right: 10px;
-}
-
-#autorotateToggle .icon.on {
-  display: none;
-}
-
-#autorotateToggle .icon.off {
-  display: block;
-}
-
-#autorotateToggle.enabled .icon.on {
-  display: block;
-}
-
-#autorotateToggle.enabled .icon.off {
-  display: none;
-}
-
-#sceneListToggle {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 40px;
-  height: 40px;
-  padding: 5px;
-  background-color: rgb(103,115,131);
-  background-color: rgba(103,115,131,0.8);
-}
-
-.mobile #sceneListToggle {
-  width: 50px;
-  height: 50px;
-}
-
-#sceneListToggle .text {
-  position: absolute;
-  top: 5px;
-  left: 15px;
-  width: 100%;
-  line-height: 30px;
-}
-
-#sceneListToggle .icon {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  width: 30px;
-  height: 30px;
-}
-
-.mobile #sceneListToggle .icon {
-  top: 10px;
-  right: 10px;
-}
-
+#fullscreenToggle .icon.on,
+#autorotateToggle .icon.on,
 #sceneListToggle .icon.on {
   display: none;
 }
-
+#fullscreenToggle .icon.off,
+#autorotateToggle .icon.off,
 #sceneListToggle .icon.off {
   display: block;
 }
 
+#fullscreenToggle.enabled .icon.on,
+#autorotateToggle.enabled .icon.on,
 #sceneListToggle.enabled .icon.on {
   display: block;
 }
-
+#fullscreenToggle.enabled .icon.off,
+#autorotateToggle.enabled .icon.off,
 #sceneListToggle.enabled .icon.off {
   display: none;
 }
 
+/* =========================================================
+   SCENE LIST (LEFT)
+   ========================================================= */
 #sceneList {
   position: absolute;
   top: 0;
-  left: -220px;
-  padding-top: 40px;
-  width: 220px;
+  left: -240px;
+  padding-top: 56px; /* matches top bar */
+  width: 240px;
   max-height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
   margin-left: 0;
-  -webkit-transition: margin-left 0.5s ease-in-out;
-  transition: margin-left 0.5s ease-in-out;
+  transition: margin-left 0.45s ease;
+  z-index: 3500;
 }
 
 .mobile #sceneList {
-  padding-top: 50px;
-}
-
-#sceneList .scenes {
-  width: 100%;
-  background-color: rgb(58,68,84);
-  background-color: rgba(58,68,84,0.8);
-}
-
-.mobile #sceneList {
+  padding-top: 64px;
   width: 100%;
   height: 100%;
   left: -100%;
 }
 
-.mobile #sceneList.enabled {
-  margin-left: 100%;
+#sceneList .scenes {
+  width: 100%;
+  background: rgba(20, 24, 32, 0.70);
+  backdrop-filter: blur(10px);
+  border-right: 1px solid rgba(255,255,255,0.08);
 }
 
-.mobile #sceneList .scenes {
-  height: 100%;
-}
-
-#sceneList.enabled {
-  margin-left: 220px;
-}
+#sceneList.enabled { margin-left: 240px; }
+.mobile #sceneList.enabled { margin-left: 100%; }
 
 #sceneList .scene {
   display: block;
   width: 100%;
-  height: 30px;
+  height: 38px;
 }
 
-.mobile #sceneList .scene {
-  height: 40px;
-}
+.mobile #sceneList .scene { height: 48px; }
 
 #sceneList .scene .text {
   width: 100%;
   height: 100%;
-  padding: 0 15px;
-  line-height: 30px;
+  padding: 0 16px;
+  line-height: 38px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  color: rgba(255,255,255,0.88);
 }
 
-.mobile #sceneList .scene .text {
-  line-height: 40px;
-}
+.mobile #sceneList .scene .text { line-height: 48px; }
 
-.no-touch #sceneList .scene:hover {
-  background-color: rgb(103,115,131);
-  background-color: rgba(103,115,131,0.8);
-}
+.no-touch #sceneList .scene:hover { background: rgba(255,255,255,0.08); }
+#sceneList .scene.current { background: rgba(255,255,255,0.12); }
 
-#sceneList .scene.current {
-  background-color: rgb(103,115,131);
-  background-color: rgba(103,115,131,0.8);
-}
-
-/* Hide scene list when only a single scene exists */
-body.single-scene #sceneList, body.single-scene #sceneListToggle {
+body.single-scene #sceneList,
+body.single-scene #sceneListToggle {
   display: none;
 }
 
-/* Link hotspot */
+/* =========================================================
+   RIGHT SIDEBAR (FULL HEIGHT - PREMIUM)
+   ========================================================= */
+#side-panel-container {
+  position: fixed;
+  top: 56px; /* below top bar */
+  right: 0;
+  height: calc(100vh - 56px);
+  z-index: 3600;
+  display: flex;
+  transition: transform 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
+.mobile #side-panel-container {
+  top: 64px;
+  height: calc(100vh - 64px);
+}
+
+#side-panel-container.collapsed {
+  transform: translateX(240px);
+}
+
+#right-sidebar {
+  width: 240px;
+  height: 100%;
+  background: rgba(20, 24, 32, 0.75);
+  backdrop-filter: blur(10px);
+  border-left: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  flex-direction: column;
+}
+
+#toggle-sidebar {
+  background: rgba(20, 24, 32, 0.75);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-right: none;
+  color: white;
+  width: 34px;
+  height: 54px;
+  align-self: center;
+  cursor: pointer;
+  border-radius: 12px 0 0 12px;
+}
+
+#toggle-sidebar:hover {
+  background: rgba(255,255,255,0.08);
+}
+
+.sidebar-header {
+  padding: 16px 14px 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  text-align: center;
+}
+
+.sidebar-header img {
+  width: 54px;
+  height: 54px;
+  border-radius: 14px;
+  object-fit: contain;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
+  margin-bottom: 10px;
+}
+
+.sidebar-title {
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  font-size: 14px;
+}
+
+.sidebar-scene {
+  margin-top: 10px;
+  display: grid;
+  gap: 4px;
+}
+
+.sidebar-scene-label {
+  font-size: 10px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+}
+
+.sidebar-scene-name {
+  font-size: 13px;
+  color: rgba(255,255,255,0.92);
+  word-wrap: break-word;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 0;
+}
+
+.sidebar-btn {
+  width: 100%;
+  background: transparent;
+  color: rgba(255,255,255,0.92);
+  padding: 16px 14px;
+  border: none;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  text-align: left;
+  font-size: 13px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: block;
+}
+
+.sidebar-btn:hover { background: rgba(255,255,255,0.08); }
+
+.link-btn {
+  text-decoration: none;
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  padding: 14px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  text-align: center;
+}
+
+.footer-line {
+  font-size: 11px;
+  color: rgba(255,255,255,0.60);
+}
+.footer-brand {
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  margin-top: 4px;
+}
+
+/* Company info accordion */
+.info-content {
+  max-height: 0;
+  overflow: hidden;
+  background: rgba(0,0,0,0.25);
+  transition: max-height 0.35s ease, padding 0.35s ease;
+  padding: 0 12px;
+}
+
+.info-content.show {
+  max-height: 520px;
+  padding: 14px 12px 6px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.info-item { margin-bottom: 12px; }
+.info-title {
+  display: block;
+  font-size: 10px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.50);
+  letter-spacing: 1.2px;
+  margin-bottom: 5px;
+}
+.info-data {
+  display: block;
+  font-size: 13px;
+  color: rgba(255,255,255,0.92);
+  line-height: 1.35;
+  word-wrap: break-word;
+}
+
+/* =========================================================
+   Hotspots (kept mostly unchanged)
+   ========================================================= */
 .link-hotspot {
   width: 60px;
   height: 60px;
   margin-left: -30px;
   margin-top: -30px;
   opacity: 0.9;
-  -webkit-transition: opacity 0.2s;
   transition: opacity 0.2s;
 }
-
-.no-touch .link-hotspot:hover {
-  opacity: 1;
-}
-
-.mobile .link-hotspot {
-  width: 70px;
-  height: 70px;
-}
-
-.link-hotspot-icon {
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
-}
+.no-touch .link-hotspot:hover { opacity: 1; }
+.mobile .link-hotspot { width: 70px; height: 70px; }
+.link-hotspot-icon { width: 100%; height: 100%; cursor: pointer; }
 
 .link-hotspot-tooltip {
   position: absolute;
   left: 100%;
-  top: 14px; /* ( 60 - (16 + 2*8) ) / 2 */
-
+  top: 14px;
   margin-left: 3px;
-
-  font-size: 16px;
-
+  font-size: 14px;
   max-width: 300px;
-
   padding: 8px 10px;
-
-  border-radius: 5px;
-
-  background-color: rgb(58,68,84);
-  background-color: rgba(58,68,84,0.8);
-
+  border-radius: 10px;
+  background: rgba(20, 24, 32, 0.80);
+  backdrop-filter: blur(10px);
   color: #fff;
-
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-
   cursor: pointer;
-
   opacity: 0;
-
-  -ms-transform: translateX(-8px);
-  -webkit-transform: translateX(-8px);
   transform: translateX(-8px);
-
-  -webkit-transition: -ms-transform 0.3s,
-                      -webkit-transform 0.3s,
-                      transform 0.3s,
-                      opacity 0.3s;
-  transition: -ms-transform 0.3s,
-              -webkit-transform 0.3s,
-              transform 0.3s,
-              opacity 0.3s;
+  transition: transform 0.25s, opacity 0.25s;
 }
-
-.mobile .link-hotspot {
-  top: 19px; /* ( 70 - (16 + 2*8) ) / 2 */
-}
-
 .no-touch .link-hotspot:hover .link-hotspot-tooltip {
   opacity: 1;
-  -ms-transform: translateX(0);
-  -webkit-transform: translateX(0);
   transform: translateX(0);
 }
+.link-hotspot-tooltip { pointer-events: none; }
+.no-touch .link-hotspot:hover .link-hotspot-tooltip { pointer-events: all; }
 
-/* Prevent tooltip from triggering */
-.link-hotspot-tooltip {
-  pointer-events: none;
-}
-.no-touch .link-hotspot:hover .link-hotspot-tooltip {
-  pointer-events: all;
-}
+.tooltip-fallback .link-hotspot-tooltip { display: none; }
+.no-touch .tooltip-fallback .link-hotspot:hover .link-hotspot-tooltip { display: block; }
 
-/* Fallback mode without pointer-events (IE8-10) */
-.tooltip-fallback .link-hotspot-tooltip {
-  display: none;
-}
-.no-touch .tooltip-fallback .link-hotspot:hover .link-hotspot-tooltip {
-  display: block;
-}
-
-/* Info hotspot */
-
-.info-hotspot {
-  line-height: 1.2em;
-  opacity: 0.9;
-  -webkit-transition: opacity 0.2s 0.2s;
-  transition: opacity 0.2s 0.2s;
-}
-
-.no-touch .info-hotspot:hover {
-  opacity: 1;
-  -webkit-transition: opacity 0.2s;
-  transition: opacity 0.2s;
-}
-
-.info-hotspot.visible {
-  opacity: 1;
-}
-
-.info-hotspot .info-hotspot-header {
-  width: 40px;
-  height: 40px;
-  border-radius: 20px;
-  background-color: rgb(103,115,131);
-  cursor: pointer;
-  -webkit-transition: width 0.3s ease-in-out 0.5s,
-                      border-radius 0.3s ease-in-out 0.5s;
-  transition: width 0.3s ease-in-out 0.5s,
-              border-radius 0.3s ease-in-out 0.5s;
-}
-
-.mobile .info-hotspot .info-hotspot-header {
-  width: 50px;
-  height: 50px;
-  border-radius: 25px;
-}
-
-.desktop.no-touch .info-hotspot .info-hotspot-header:hover {
-  width: 260px;
-  border-radius: 5px;
-  -webkit-transition: width 0.3s ease-in-out,
-                      border-radius 0.3s ease-in-out;
-  transition: width 0.3s ease-in-out,
-              border-radius 0.3s ease-in-out;
-}
-
-.desktop .info-hotspot.visible .info-hotspot-header,
-.desktop.no-touch .info-hotspot.visible .info-hotspot-header:hover {
-  width: 260px;
-  border-radius: 5px;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-  -webkit-transition: width 0.3s ease-in-out,
-                      border-radius 0.3s ease-in-out;
-  transition: width 0.3s ease-in-out,
-              border-radius 0.3s ease-in-out;
-}
-
-.info-hotspot .info-hotspot-icon-wrapper {
-  width: 40px;
-  height: 40px;
-}
-
-.mobile .info-hotspot .info-hotspot-icon-wrapper {
-  width: 50px;
-  height: 50px;
-}
-
-.info-hotspot .info-hotspot-icon {
-  width: 90%;
-  height: 90%;
-  margin: 5%;
-}
-
-.info-hotspot .info-hotspot-title-wrapper {
-  position: absolute;
-  left: 40px;
-  top: 0;
-  width: 0;
-  height: 40px;
-  padding: 0;
-  overflow: hidden;
-  -webkit-transition: width 0s 0.4s,
-                      padding 0s 0.4s;
-  transition: width 0s 0.4s,
-              padding 0s 0.4s;
-}
-
-.desktop .info-hotspot.visible .info-hotspot-title-wrapper,
-.desktop.no-touch .info-hotspot .info-hotspot-header:hover .info-hotspot-title-wrapper {
-  width: 220px;
-  padding: 0 5px;
-  -webkit-transition: width 0s 0.4s,
-                      padding 0s 0.4s;
-  transition: width 0s 0.4s,
-              padding 0s 0.4s;
-}
-
-.info-hotspot .info-hotspot-title-wrapper:before {
-  content: '';
-  display: inline-block;
-  vertical-align: middle;
-  height: 100%;
-}
-
-.info-hotspot .info-hotspot-title {
-  display: inline-block;
-  vertical-align: middle;
-
-  -moz-user-select: text;
-  -webkit-user-select: text;
-  -ms-user-select: text;
-  user-select: text;
-}
-
-.info-hotspot .info-hotspot-close-wrapper {
-  position: absolute;
-  left: 260px;
-  top: 0;
-  height: 40px;
-  width: 40px;
-  border-top-right-radius: 5px;
-  background-color: rgb(78,88,104);
-  visibility: hidden;
-  -ms-transform: perspective(200px) rotateY(90deg);
-  -webkit-transform: perspective(200px) rotateY(90deg);
-  transform: perspective(200px) rotateY(90deg);
-  -ms-transform-origin: 0 50% 0;
-  -webkit-transform-origin: 0 50% 0;
-  transform-origin: 0 50% 0;
-  -webkit-transition: -ms-transform 0.3s 0.3s,
-                      -webkit-transform 0.3s 0.3s,
-                      transform 0.3s 0.3s,
-                      visibility 0s 0.6s;
-  transition: -ms-transform 0.3s 0.3s,
-              -webkit-transform 0.3s 0.3s,
-              transform 0.3s 0.3s,
-              visibility 0s 0.6s;
-}
-
-.desktop .info-hotspot.visible .info-hotspot-close-wrapper {
-  visibility: visible;
-  -ms-transform: perspective(200px) rotateY(0deg);
-  -webkit-transform: perspective(200px) rotateY(0deg);
-  transform: perspective(200px) rotateY(0deg);
-  -webkit-transition: -ms-transform 0.3s,
-                      -webkit-transform 0.3s,
-                      transform 0.3s,
-                      visibility 0s 0s;
-  transition: -ms-transform 0.3s,
-              -webkit-transform 0.3s,
-              transform 0.3s,
-              visibility 0s 0s;
-}
-
-.info-hotspot .info-hotspot-close-icon {
-  width: 70%;
-  height: 70%;
-  margin: 15%;
-}
-
-.info-hotspot .info-hotspot-text {
-  position: absolute;
-  width: 300px;
-  height: auto;
-  max-height: 200px;
-  top: 40px;
-  left: 0;
-  padding: 10px;
-  background-color: rgb(58,68,84);
-  border-bottom-right-radius: 5px;
-  border-bottom-left-radius: 5px;
-  overflow-y: auto;
-  visibility: hidden;
-  /* rotate(90deg) causes transition flicker on Firefox 58 */
-  -ms-transform: perspective(200px) rotateX(-89.999deg);
-  -webkit-transform: perspective(200px) rotateX(-89.999deg);
-  transform: perspective(200px) rotateX(-89.999deg);
-  -ms-transform-origin: 50% 0 0;
-  -webkit-transform-origin: 50% 0 0;
-  transform-origin: 50% 0 0;
-  -webkit-transition: -ms-transform 0.3s,
-                      -webkit-transform 0.3s,
-                      transform 0.3s,
-                      visibility 0s 0.3s;
-  transition: -ms-transform 0.3s,
-              -webkit-transform 0.3s,
-              transform 0.3s,
-              visibility 0s 0.3s;
-
-  -moz-user-select: text;
-  -webkit-user-select: text;
-  -ms-user-select: text;
-  user-select: text;
-}
-
-.desktop .info-hotspot.visible .info-hotspot-text {
-  visibility: visible;
-  -ms-transform: perspective(200px) rotateX(0deg);
-  -webkit-transform: perspective(200px) rotateX(0deg);
-  transform: perspective(200px) rotateX(0deg);
-  -webkit-transition: -ms-transform 0.3s 0.3s,
-                      -webkit-transform 0.3s 0.3s,
-                      transform 0.3s 0.3s,
-                      visibility 0s 0s;
-  transition: -ms-transform 0.3s 0.3s,
-              -webkit-transform 0.3s 0.3s,
-              transform 0.3s 0.3s,
-              visibility 0s 0s;
-}
-
-/* Info hotspot modal */
-
-.desktop .info-hotspot-modal {
-  display: none;
-}
-
-.info-hotspot-modal {
-  top: 0;
-  left: 0;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  z-index: 11000 !important;
-  background-color: rgba(0,0,0,.5);
-  line-height: 1.2em;
-  opacity: 0;
-  visibility: hidden;
-  -webkit-transition: opacity 0.2s ease-in-out 0.5s,
-                      visibility 0s 0.7s;
-  transition: opacity 0.2s ease-in-out 0.5s,
-              visibility 0s 0.7s;
-}
-
-.info-hotspot-modal.visible {
-  opacity: 1;
-  visibility: visible;
-  -webkit-transition: opacity 0.2s ease-in-out,
-                      visibility 0s 0s;
-  transition: opacity 0.2s ease-in-out,
-              visibility 0s 0s;
-}
-
-.info-hotspot-modal .info-hotspot-header {
-  position: absolute;
-  top: 60px;
-  left: 10px;
-  right: 10px;
-  width: auto;
-  height: 50px;
-  background-color: rgb(103,115,131);
-  background-color: rgba(103,115,131,0.8);
-  opacity: 0;
-  -webkit-transition: opacity 0.3s ease-in-out 0.2s;
-  transition: opacity 0.3s ease-in-out 0.2s;
-}
-
-.info-hotspot-modal.visible .info-hotspot-header {
-  opacity: 1;
-  -webkit-transition: opacity 0.3s ease-in-out 0.2s;
-  transition: opacity 0.3s ease-in-out 0.2s;
-}
-
-.info-hotspot-modal .info-hotspot-icon-wrapper {
-  width: 50px;
-  height: 50px;
-}
-
-.info-hotspot-modal .info-hotspot-icon {
-  width: 90%;
-  height: 90%;
-  margin: 5%;
-}
-
-.info-hotspot-modal .info-hotspot-title-wrapper {
-  position: absolute;
-  top: 0;
-  left: 50px;
-  right: 50px;
-  width: auto;
-  height: 50px;
-  padding: 0 10px;
-}
-
-.info-hotspot-modal .info-hotspot-title-wrapper:before {
-  content: '';
-  display: inline-block;
-  vertical-align: middle;
-  height: 100%;
-}
-
-.info-hotspot-modal .info-hotspot-title {
-  display: inline-block;
-  vertical-align: middle;
-
-  -moz-user-select: text;
-  -webkit-user-select: text;
-  -ms-user-select: text;
-  user-select: text;
-}
-
-.info-hotspot-modal .info-hotspot-close-wrapper {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 50px;
-  height: 50px;
-  background-color: rgb(78,88,104);
-  background-color: rgba(78,88,104,0.8);
-  cursor: pointer;
-}
-
-.info-hotspot-modal .info-hotspot-close-icon {
-  width: 70%;
-  height: 70%;
-  margin: 15%;
-}
-
-.info-hotspot-modal .info-hotspot-text {
-  position: absolute;
-  top: 110px;
-  bottom: 10px;
-  left: 10px;
-  right: 10px;
-  padding: 10px;
-  background-color: rgb(58,68,84);
-  background-color: rgba(58,68,84,0.8);
-  overflow-y: auto;
-  opacity: 0;
-  -webkit-transition: opacity 0.3s ease-in-out;
-  transition: opacity 0.3s ease-in-out;
-
-  -moz-user-select: text;
-  -webkit-user-select: text;
-  -ms-user-select: text;
-  user-select: text;
-}
-
-.info-hotspot-modal.visible .info-hotspot-text {
-  opacity: 1;
-  -webkit-transition: opacity 0.3s ease-in-out 0.4s;
-  transition: opacity 0.3s ease-in-out 0.4s;
-}
-
-/* View control buttons */
-
+/* =========================================================
+   View control buttons (optional)
+   ========================================================= */
 .viewControlButton {
   display: none;
   position: absolute;
@@ -786,154 +459,30 @@ body.single-scene #sceneList, body.single-scene #sceneListToggle {
   width: 40px;
   height: 40px;
   padding: 5px;
-  background-color: rgb(103,115,131);
-  background-color: rgba(103,115,131,0.8);
+  background-color: rgba(20,24,32,0.65);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  z-index: 3400;
 }
 
-body.view-control-buttons .viewControlButton {
-  display: block;
-}
+body.view-control-buttons .viewControlButton { display: block; }
 
-/* Hide controls when width is too small */
 @media (max-width: 600px) {
-  body.view-control-buttons .viewControlButton {
-    display: none;
-  }
+  body.view-control-buttons .viewControlButton { display: none; }
 }
 
 .viewControlButton .icon {
   position: absolute;
-  top: 5px;
-  right: 5px;
-  width: 30px;
-  height: 30px;
+  top: 10px;
+  right: 10px;
+  width: 20px;
+  height: 20px;
 }
 
-/* Center is at margin-left: -20px */
-.viewControlButton-1 {
-  margin-left: -145px;
-}
-.viewControlButton-2 {
-  margin-left: -95px;
-}
-.viewControlButton-3 {
-  margin-left: -45px;
-}
-.viewControlButton-4 {
-  margin-left: 5px;
-}
-.viewControlButton-5 {
-  margin-left: 55px;
-}
-.viewControlButton-6 {
-  margin-left: 105px;
-}
-
-/* Título fijo en la barra superior */
-.fixed-title {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  font-weight: bold;
-  color: #fff;
-  font-family: sans-serif;
-  pointer-events: none;
-}
-
-/* Panel Lateral de Alto Completo */
-#side-panel-container {
-  position: fixed;
-  top: 40px; /* Inicia justo bajo la barra de Marzipano */
-  right: 0;
-  height: calc(100vh - 40px); /* Se extiende hasta el final de la pantalla */
-  z-index: 3000;
-  display: flex;
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-#side-panel-container.collapsed {
-  transform: translateX(220px);
-}
-
-#right-sidebar {
-  width: 220px;
-  height: 100%;
-  background-color: rgba(58, 68, 84, 0.9); /* Color Marzipano con más opacidad */
-  backdrop-filter: blur(5px); /* Efecto moderno de desenfoque */
-  border-left: 1px solid rgba(255,255,255,0.1);
-}
-
-/* Botón de flecha más estético */
-#toggle-sidebar {
-  background: rgba(58, 68, 84, 0.9);
-  border: none;
-  color: white;
-  width: 30px;
-  height: 50px;
-  align-self: center;
-  cursor: pointer;
-  border-radius: 10px 0 0 10px;
-}
-
-/* Estética de los botones */
-.sidebar-btn {
-  width: 100%;
-  background: transparent;
-  color: #fff;
-  padding: 18px 15px;
-  border: none;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
-  text-align: left;
-  font-size: 14px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  cursor: pointer;
-  display: block;
-  text-decoration: none;
-}
-
-.sidebar-btn:hover {
-  background: rgba(255,255,255,0.1);
-}
-
-/* Estado oculto de la información */
-.info-content {
-  max-height: 0;
-  overflow: hidden; /* Evita que el texto se vea cuando está cerrado */
-  background: rgba(0, 0, 0, 0.3);
-  transition: max-height 0.4s ease-out, padding 0.4s ease;
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  padding: 0 10px; /* Padding lateral siempre, pero sin vertical */
-}
-
-/* Estado visible (cuando se hace clic) */
-.info-content.show {
-  max-height: 500px; /* Un valor lo suficientemente alto */
-  padding: 20px 10px; /* Se añade el padding vertical al abrir */
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* Estructura de los items para que no se descuadren */
-.info-item {
-  margin-bottom: 15px;
-  width: 100%;
-}
-
-.info-title {
-  display: block; /* Asegura que el título ocupe su propia línea */
-  font-size: 10px;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.5);
-  letter-spacing: 1.5px;
-  margin-bottom: 5px;
-}
-
-.info-data {
-  display: block; /* Asegura que el dato ocupe su propia línea */
-  font-size: 13px;
-  color: #ffffff;
-  line-height: 1.4;
-  word-wrap: break-word; /* Evita que direcciones largas se salgan del cuadro */
-}
+.viewControlButton-1 { margin-left: -145px; }
+.viewControlButton-2 { margin-left: -95px; }
+.viewControlButton-3 { margin-left: -45px; }
+.viewControlButton-4 { margin-left: 5px; }
+.viewControlButton-5 { margin-left: 55px; }
+.viewControlButton-6 { margin-left: 105px; }
