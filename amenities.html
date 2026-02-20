@@ -9,326 +9,393 @@
   <link rel="stylesheet" href="style.css">
 
   <style>
-    body {
-      background: radial-gradient(circle, #2c343f 0%, #1a1e24 100%);
-      overflow: hidden;
-    }
-
-    #titleBar {
+    /* Content page behavior */
+    #titleBar{
       position: sticky;
       top: 0;
     }
 
-    .amenities-layout {
-      height: calc(100vh - 56px);
+    .amenities-layout{
+      min-height: calc(100vh - (var(--tb-h) + var(--safe-top)));
       display: grid;
-      grid-template-columns: 1fr 260px;
+      grid-template-columns: 1fr var(--sidebar-w);
     }
 
-    .mobile .amenities-layout {
-      height: calc(100vh - 64px);
+    .mobile .amenities-layout{
+      min-height: calc(100vh - (var(--tb-h-mobile) + var(--safe-top)));
       grid-template-columns: 1fr;
       grid-template-rows: 1fr auto;
     }
 
-    .gallery-main {
+    .gallery-main{
       position: relative;
       display: grid;
       grid-template-rows: 1fr auto;
-      align-items: center;
       justify-items: center;
+      align-items: center;
+      padding: 10px 0 14px;
       overflow: hidden;
     }
 
-    .image-wrapper {
-      width: min(1100px, 86%);
-      height: min(70vh, 720px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .image-wrapper{
+      width: min(1100px, 92%);
+      height: min(68vh, 720px);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin-top: 6px;
     }
 
-    .main-image {
+    .main-image{
       max-width: 100%;
       max-height: 100%;
       object-fit: contain;
       border-radius: 14px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.60);
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+
       opacity: 0;
-      transform: scale(0.98);
+      transform: scale(0.995);
       transition: opacity 0.35s ease, transform 0.35s ease;
       touch-action: pan-y;
     }
 
-    .nav-btn {
-      position: absolute;
-      top: 45%;
+    .nav-btn{
+      position:absolute;
+      top: 46%;
       transform: translateY(-50%);
-      background: rgba(20, 24, 32, 0.6);
-      border: 1px solid rgba(255,255,255,0.1);
-      color: white;
-      width: 60px;
-      height: 90px;
-      font-size: 28px;
+      background: rgba(20, 24, 32, 0.55);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.10);
+      width: 56px;
+      height: 86px;
       cursor: pointer;
+      font-size: 28px;
+      z-index: 10;
       backdrop-filter: blur(10px);
+      transition: background 0.2s ease, width 0.12s ease;
     }
+    .nav-btn:hover{ background: rgba(20, 24, 32, 0.75); width: 64px; }
+    .prev{ left:0; border-radius: 0 14px 14px 0; }
+    .next{ right:0; border-radius: 14px 0 0 14px; }
 
-    .prev { left: 0; border-radius: 0 14px 14px 0; }
-    .next { right: 0; border-radius: 14px 0 0 14px; }
-
-    .thumbs {
-      width: min(1100px, 86%);
-      display: flex;
+    .thumbs{
+      width: min(1100px, 92%);
+      display:flex;
       gap: 10px;
       overflow-x: auto;
-      padding: 10px;
+      padding: 10px 6px 6px;
+      scroll-behavior: smooth;
     }
 
-    .thumb {
-      width: 95px;
-      height: 65px;
+    .thumb{
+      flex: 0 0 auto;
+      width: 92px;
+      height: 62px;
       border-radius: 12px;
       overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.04);
       cursor: pointer;
-      opacity: 0.7;
-      transition: 0.2s;
+      opacity: 0.78;
+      transition: opacity 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
     }
-
-    .thumb.active {
+    .thumb:hover{
       opacity: 1;
-      border-color: rgba(255,255,255,0.3);
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,0.18);
     }
-
-    .thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    .thumb.active{
+      opacity: 1;
+      border-color: rgba(255,255,255,0.28);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.35);
     }
+    .thumb img{ width:100%; height:100%; object-fit: cover; display:block; }
 
-    .amenities-panel {
-      background: rgba(20,24,32,0.75);
-      backdrop-filter: blur(10px);
+    .amenities-panel{
       border-left: 1px solid rgba(255,255,255,0.08);
-      display: flex;
+      background: rgba(20, 24, 32, 0.75);
+      backdrop-filter: blur(10px);
+      display:flex;
       flex-direction: column;
     }
-
-    .panel-header {
-      padding: 18px;
-      text-align: center;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .panel-header img {
-      width: 60px;
-      margin-bottom: 10px;
-    }
-
-    .panel-title {
-      font-weight: 800;
-      letter-spacing: 1px;
-      font-size: 14px;
-      text-transform: uppercase;
-    }
-
-    .panel-subtitle {
-      font-size: 12px;
-      color: rgba(255,255,255,0.7);
-    }
-
-    .panel-body {
-      padding: 16px;
-      display: grid;
-      gap: 14px;
-    }
-
-    .caption {
-      background: rgba(0,0,0,0.25);
-      padding: 12px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.1);
-      font-size: 13px;
-    }
-
-    .caption .label {
-      display: block;
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: rgba(255,255,255,0.5);
-      margin-bottom: 6px;
-    }
-
-    .counter {
-      text-align: center;
-      font-size: 12px;
-      color: rgba(255,255,255,0.6);
-    }
-
-    .brochure-btn {
-      padding: 12px;
-      text-align: center;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.1);
-      background: rgba(255,255,255,0.06);
-      text-transform: uppercase;
-      font-size: 12px;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .brochure-btn:hover {
-      background: rgba(255,255,255,0.12);
-    }
-
-    .hint {
-      margin-top: auto;
-      padding: 14px;
-      text-align: center;
-      font-size: 11px;
-      color: rgba(255,255,255,0.6);
+    .mobile .amenities-panel{
+      border-left:none;
       border-top: 1px solid rgba(255,255,255,0.08);
     }
 
-    .hint kbd {
-      padding: 2px 6px;
-      border-radius: 6px;
-      border: 1px solid rgba(255,255,255,0.2);
+    .panel-header{
+      padding: 16px 14px 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      text-align:center;
+    }
+    .panel-header img{
+      width:54px;
+      height:54px;
+      border-radius:14px;
+      object-fit: contain;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      margin-bottom: 10px;
+    }
+    .panel-title{
+      font-weight: 800;
+      letter-spacing: 0.6px;
+      font-size: 14px;
+      text-transform: uppercase;
+    }
+    .panel-subtitle{
+      margin-top: 6px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.70);
+    }
+
+    .panel-body{
+      padding: 14px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .caption{
+      font-size: 13px;
+      color: rgba(255,255,255,0.92);
+      line-height: 1.35;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(0,0,0,0.20);
+      border-radius: 12px;
+      padding: 12px;
+    }
+    .caption .label{
+      display:block;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 6px;
+    }
+
+    .counter{
+      font-size: 12px;
+      color: rgba(255,255,255,0.65);
+      background: rgba(0,0,0,0.20);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 6px 10px;
+      border-radius: 999px;
+      text-align: center;
+      width: fit-content;
+      margin: 0 auto;
+    }
+
+    .brochure-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width: 100%;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.92);
+      font-size: 12px;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+    }
+    .brochure-btn:hover{
+      background: rgba(255,255,255,0.10);
+      border-color: rgba(255,255,255,0.16);
+    }
+
+    .hint{
+      margin-top:auto;
+      padding: 14px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      text-align:center;
       font-size: 11px;
+      color: rgba(255,255,255,0.60);
+    }
+    .hint kbd{
+      display:inline-block;
+      padding: 2px 6px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.06);
+      font-size: 11px;
+      color: rgba(255,255,255,0.80);
+      margin: 0 2px;
     }
   </style>
 </head>
 
-<body>
-
-<header id="titleBar">
-  <div class="tb-left">
-    <div class="brand">
-      <img class="brand-logo" src="img/serenity.png">
-      <div class="brand-text">
-        <div class="brand-name">NordImmersive</div>
-        <div class="brand-tagline">Expériences immersives 3D — Montréal</div>
+<body class="page-scroll">
+  <!-- TOP BAR (same premium structure) -->
+  <header id="titleBar" role="banner">
+    <div class="tb-left">
+      <div class="brand">
+        <img class="brand-logo" src="img/serenity.png" alt="Serenity Towers">
+        <div class="brand-text">
+          <div class="brand-name">NordImmersive</div>
+          <div class="brand-tagline">Expériences immersives 3D — Montréal</div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="tb-center">
-    <div class="unit-title">Commodités</div>
-  </div>
-
-  <div class="tb-right">
-    <a class="tb-icon" href="index.html">❮</a>
-  </div>
-</header>
-
-<div class="amenities-layout">
-
-  <main class="gallery-main">
-    <button class="nav-btn prev" onclick="changeImage(-1)">❮</button>
-
-    <div class="image-wrapper">
-      <img id="display-img" class="main-image">
+    <div class="tb-center">
+      <div class="unit-title">Commodités</div>
+      <div class="sceneName" aria-hidden="true"></div>
     </div>
 
-    <button class="nav-btn next" onclick="changeImage(1)">❯</button>
-
-    <div class="thumbs" id="thumbs-container"></div>
-  </main>
-
-  <aside class="amenities-panel">
-    <div class="panel-header">
-      <img src="img/serenity.png">
-      <div class="panel-title">Serenity Towers</div>
-      <div class="panel-subtitle">Unité 3 1/2 — XX10</div>
+    <div class="tb-right">
+      <div class="tb-actions">
+        <a class="tb-icon" href="index.html" aria-label="Retour à la visite">
+          <span style="font-size:16px; line-height:1;">❮</span>
+        </a>
+      </div>
     </div>
+  </header>
 
-    <div class="panel-body">
-      <div class="caption">
-        <span class="label">Commodité</span>
-        <div id="image-caption">Chargement…</div>
+  <div class="amenities-layout">
+    <main class="gallery-main" aria-label="Galerie de commodités">
+      <button class="nav-btn prev" type="button" aria-label="Image précédente" onclick="changeImage(-1)">❮</button>
+
+      <div class="image-wrapper">
+        <img id="display-img" class="main-image" src="" alt="Galerie des commodités">
       </div>
 
-      <div id="counter" class="counter">0 / 0</div>
+      <button class="nav-btn next" type="button" aria-label="Image suivante" onclick="changeImage(1)">❯</button>
 
-      <a href="brochure-serenity-towers-fr.pdf" target="_blank" class="brochure-btn">
-        Télécharger la brochure (PDF)
-      </a>
-    </div>
+      <div class="thumbs" id="thumbs-container" aria-label="Miniatures"></div>
+    </main>
 
-    <div class="hint">
-      Raccourcis : <kbd>←</kbd> <kbd>→</kbd> • Quitter : <kbd>Esc</kbd>
-    </div>
-  </aside>
+    <aside class="amenities-panel" aria-label="Informations">
+      <div class="panel-header">
+        <img src="img/serenity.png" alt="Serenity Towers">
+        <div class="panel-title">Serenity Towers</div>
+        <div class="panel-subtitle">Unité 3 1/2 — XX10</div>
+      </div>
 
-</div>
+      <div class="panel-body">
+        <div class="caption">
+          <span class="label">Commodité</span>
+          <div id="image-caption">Chargement…</div>
+        </div>
 
-<script>
-const images = [
-  { src: 'img/amenity1.jpg', title: 'Piscine panoramique' },
-  { src: 'img/amenity2.jpg', title: 'Salle d’entraînement moderne' },
-  { src: 'img/amenity3.jpg', title: 'Salle communautaire' },
-  { src: 'img/amenity4.jpg', title: 'Terrasse extérieure avec BBQ' }
-];
+        <div id="counter" class="counter">0 / 0</div>
 
-let currentIndex = 0;
-const imgElement = document.getElementById('display-img');
-const captionElement = document.getElementById('image-caption');
-const counterElement = document.getElementById('counter');
-const thumbsContainer = document.getElementById('thumbs-container');
+        <a href="brochure-serenity-towers-fr.pdf" class="brochure-btn" target="_blank" rel="noopener">
+          Télécharger la brochure (PDF)
+        </a>
+      </div>
 
-function updateGallery() {
-  const item = images[currentIndex];
-  imgElement.style.opacity = 0;
-  setTimeout(() => {
-    imgElement.src = item.src;
-    captionElement.textContent = item.title;
-    counterElement.textContent = (currentIndex + 1) + " / " + images.length;
-    document.querySelectorAll('.thumb').forEach((t,i)=>{
-      t.classList.toggle('active', i===currentIndex);
+      <div class="hint">
+        Raccourcis : <kbd>←</kbd> <kbd>→</kbd> • Quitter : <kbd>Esc</kbd>
+      </div>
+    </aside>
+  </div>
+
+  <script>
+    // Desktop/Mobile mode (same threshold as tour)
+    (function() {
+      if (window.matchMedia) {
+        var mql = matchMedia("(max-width: 500px), (max-height: 500px)");
+        var setMode = function() {
+          if (mql.matches) {
+            document.body.classList.remove('desktop');
+            document.body.classList.add('mobile');
+          } else {
+            document.body.classList.remove('mobile');
+            document.body.classList.add('desktop');
+          }
+        };
+        setMode();
+        mql.addListener(setMode);
+      } else {
+        document.body.classList.add('desktop');
+      }
+    })();
+
+    const images = [
+      { src: 'img/amenity1.jpg', title: 'Piscine panoramique' },
+      { src: 'img/amenity2.jpg', title: 'Salle d’entraînement moderne' },
+      { src: 'img/amenity3.jpg', title: 'Salle communautaire' },
+      { src: 'img/amenity4.jpg', title: 'Terrasse extérieure avec BBQ' }
+    ];
+
+    let currentIndex = 0;
+    const imgElement = document.getElementById('display-img');
+    const captionElement = document.getElementById('image-caption');
+    const counterElement = document.getElementById('counter');
+    const thumbsContainer = document.getElementById('thumbs-container');
+
+    function updateThumbs() {
+      const thumbs = document.querySelectorAll('.thumb');
+      thumbs.forEach((t, i) => t.classList.toggle('active', i === currentIndex));
+    }
+
+    function updateGallery() {
+      imgElement.style.opacity = 0;
+      imgElement.style.transform = 'scale(0.995)';
+
+      setTimeout(() => {
+        const item = images[currentIndex];
+        imgElement.src = item.src;
+        captionElement.textContent = item.title;
+        counterElement.textContent = (currentIndex + 1) + " / " + images.length;
+
+        imgElement.onload = () => {
+          imgElement.style.opacity = 1;
+          imgElement.style.transform = 'scale(1)';
+        };
+
+        // fallback for cached images
+        setTimeout(() => {
+          imgElement.style.opacity = 1;
+          imgElement.style.transform = 'scale(1)';
+        }, 90);
+
+        updateThumbs();
+      }, 220);
+    }
+
+    function changeImage(step) {
+      currentIndex += step;
+      if (currentIndex >= images.length) currentIndex = 0;
+      if (currentIndex < 0) currentIndex = images.length - 1;
+      updateGallery();
+    }
+
+    // Build thumbnails
+    (function buildThumbs() {
+      thumbsContainer.innerHTML = '';
+      images.forEach((img, i) => {
+        const div = document.createElement('div');
+        div.className = 'thumb';
+        div.innerHTML = `<img src="${img.src}" alt="">`;
+        div.addEventListener('click', () => { currentIndex = i; updateGallery(); });
+        thumbsContainer.appendChild(div);
+      });
+    })();
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      if (e.key === "ArrowRight") changeImage(1);
+      if (e.key === "ArrowLeft") changeImage(-1);
+      if (e.key === "Escape") window.location.href = 'index.html';
     });
-    imgElement.onload = ()=>{
-      imgElement.style.opacity = 1;
-      imgElement.style.transform = "scale(1)";
-    };
-  },200);
-}
 
-function changeImage(step){
-  currentIndex += step;
-  if(currentIndex >= images.length) currentIndex = 0;
-  if(currentIndex < 0) currentIndex = images.length - 1;
-  updateGallery();
-}
+    // Swipe (mobile)
+    let startX = 0;
+    imgElement.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; }, { passive: true });
+    imgElement.addEventListener('touchend', (e) => {
+      const diff = e.changedTouches[0].clientX - startX;
+      if (Math.abs(diff) > 50) {
+        if (diff < 0) changeImage(1);
+        else changeImage(-1);
+      }
+    }, { passive: true });
 
-images.forEach((img,i)=>{
-  const div = document.createElement('div');
-  div.className="thumb";
-  div.innerHTML=`<img src="${img.src}">`;
-  div.onclick=()=>{currentIndex=i;updateGallery();};
-  thumbsContainer.appendChild(div);
-});
-
-updateGallery();
-
-document.addEventListener('keydown',e=>{
-  if(e.key==="ArrowRight") changeImage(1);
-  if(e.key==="ArrowLeft") changeImage(-1);
-  if(e.key==="Escape") window.location.href="index.html";
-});
-
-// Swipe mobile
-let startX=0;
-imgElement.addEventListener('touchstart',e=>{startX=e.touches[0].clientX;});
-imgElement.addEventListener('touchend',e=>{
-  let diff=e.changedTouches[0].clientX-startX;
-  if(Math.abs(diff)>50){
-    if(diff<0) changeImage(1);
-    else changeImage(-1);
-  }
-});
-</script>
-
+    // Init
+    if (images.length > 0) updateGallery();
+  </script>
 </body>
 </html>
