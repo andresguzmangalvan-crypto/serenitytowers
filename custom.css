@@ -713,4 +713,109 @@
   }
   .commodites-page .ct-brandName{ font-size: 13px; }
   .commodites-page .ct-amenity{ font-size: 12.5px; max-width: 72vw; }
+
+}
+
+/* Topbar: evita que el texto se salga en móvil */
+@media (max-width: 560px){
+  .commodites-page .ct-center{
+    max-width: 70vw;
+  }
+  .commodites-page .ct-brandName{
+    display: none; /* opcional: ocultar “Serenity Towers” y dejar solo logo + amenity */
+  }
+  .commodites-page .ct-amenity{
+    max-width: 70vw;
+    font-size: 12.5px;
+  }
+}
+
+/* Botón Retour siempre cómodo */
+.commodites-page .ct-backTop,
+.commodites-page .c-back{
+  min-height: 44px;
+}
+
+/* Card principal: en móvil reduce sombra y radios para verse “tight” */
+@media (max-width: 560px){
+  .commodites-page .c-stage{
+    border-radius: 16px;
+  }
+  .commodites-page .c-head{
+    padding: 12px 12px 10px;
+  }
+}
+
+/* Imagen principal: adapta ratio */
+@media (max-width: 560px){
+  .commodites-page .c-main{
+    padding: 12px;
+  }
+  .commodites-page .c-figure{
+    aspect-ratio: 4 / 3;
+    border-radius: 16px;
+  }
+}
+
+/* Flechas: más grandes y siempre accesibles */
+.commodites-page .c-arrow{
+  width: 46px;
+  height: 46px;
+}
+
+@media (max-width: 560px){
+  .commodites-page .c-arrow{
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    font-size: 28px;
+  }
+  .commodites-page .c-arrow-left{ left: 10px; }
+  .commodites-page .c-arrow-right{ right: 10px; }
+}
+
+/* Thumbs bar: mejor ergonomía + snap */
+.commodites-page .c-thumbs{
+  scroll-snap-type: x mandatory;
+  gap: 10px;
+  padding: 10px 10px 12px;
+}
+
+.commodites-page .c-thumb{
+  scroll-snap-align: start;
+  width: 150px;
+}
+
+@media (max-width: 560px){
+  .commodites-page .c-thumb{
+    width: 132px;
+    height: 84px;
+    border-radius: 14px;
+  }
+  .commodites-page .c-cap{
+    font-size: 11px;
+    padding: 5px 8px;
+  }
+}
+
+/* Evita “zoom” raro al tocar inputs (si un día agregas forms) */
+@media (max-width: 560px){
+  input, button, select, textarea{
+    font-size: 16px;
+  }
+}
+
+/* Hover sólo en dispositivos con mouse (para no “ensuciar” mobile) */
+@media (hover: none){
+  .commodites-page .c-thumb:hover,
+  .commodites-page .ct-backTop:hover,
+  .commodites-page .c-back:hover{
+    transform: none;
+    background: rgba(255,255,255,0.08);
+  }
+}
+
+/* Reduce motion si el usuario lo pide (premium + accesible) */
+@media (prefers-reduced-motion: reduce){
+  *{ transition: none !important; scroll-behavior: auto !important; }
 }
