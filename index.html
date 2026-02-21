@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+  <meta charset="utf-8">
+  <title>Serenity Towers 3 1/2 — XX10</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <!-- Original Marzipano CSS -->
+  <link rel="stylesheet" href="vendor/reset.min.css">
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Custom layer -->
+  <link rel="stylesheet" href="custom.css">
+</head>
+
+<body class="multiple-scenes">
+
+  <div id="pano"></div>
+
+  <!-- Scene list (IDs/structure unchanged) -->
+  <div id="sceneList" aria-label="Liste des scènes">
+    <ul class="scenes">
+      <a href="javascript:void(0)" class="scene" data-id="0-entrance1"><li class="text">Entrée 1</li></a>
+      <a href="javascript:void(0)" class="scene" data-id="1-entrace2"><li class="text">Entrée 2</li></a>
+      <a href="javascript:void(0)" class="scene" data-id="2-laundry"><li class="text">Buanderie</li></a>
+      <a href="javascript:void(0)" class="scene" data-id="3-kitchen"><li class="text">Cuisine</li></a>
+      <a href="javascript:void(0)" class="scene" data-id="4-salon-centre"><li class="text">Salon</li></a>
+      <a href="javascript:void(0)" class="scene" data-id="5-aisle2"><li class="text">Couloir 2</li></a>
+      <a href="javascript:void(0)" class="scene" data-id="6-balcony"><li class="text">Balcon</li></a>
+      <a href="javascript:void(0)" class="scene" data-id="7-bedroom"><li class="text">Chambre</li></a>
+      <a href="javascript:void(0)" class="scene" data-id="8-bathroom"><li class="text">Salle de bain</li></a>
+      <a href="javascript:void(0)" class="scene" data-id="9-aisle"><li class="text">Couloir</li></a>
+    </ul>
+  </div>
+
+  <!-- Title Bar (keeps #titleBar + h1.sceneName for Marzipano) -->
+  <div id="titleBar">
+    <div class="ni-topbar">
+      <div class="ni-left">
+        <div class="ni-brand">
+          <img class="ni-logo" src="img/serenity.png" alt="Serenity Towers">
+          <div class="ni-brandText">
+            <div class="ni-brandName">Serenity Towers</div>
+            <div class="ni-brandTag">Visite virtuelle 3D</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ni-center">
+        <div class="ni-unit">Unité 3 1/2 — XX10</div>
+        <!-- Must remain in DOM (Marzipano uses it), hidden by CSS -->
+        <h1 class="sceneName"></h1>
+      </div>
+
+      <div class="ni-right">
+        <div class="ni-actions">
+          <a href="javascript:void(0)" id="autorotateToggle" class="ni-btn" aria-label="Auto-rotation">
+            <img class="icon off" src="img/play.png" alt="">
+            <img class="icon on" src="img/pause.png" alt="">
+          </a>
+
+          <a href="javascript:void(0)" id="fullscreenToggle" class="ni-btn" aria-label="Plein écran">
+            <img class="icon off" src="img/fullscreen.png" alt="">
+            <img class="icon on" src="img/windowed.png" alt="">
+          </a>
+
+          <a href="javascript:void(0)" id="sceneListToggle" class="ni-btn" aria-label="Liste des scènes">
+            <img class="icon off" src="img/expand.png" alt="">
+            <img class="icon on" src="img/collapse.png" alt="">
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- View controls (IDs unchanged) -->
+  <a href="javascript:void(0)" id="viewUp" class="viewControlButton viewControlButton-1" aria-label="Haut"><img class="icon" src="img/up.png" alt=""></a>
+  <a href="javascript:void(0)" id="viewDown" class="viewControlButton viewControlButton-2" aria-label="Bas"><img class="icon" src="img/down.png" alt=""></a>
+  <a href="javascript:void(0)" id="viewLeft" class="viewControlButton viewControlButton-3" aria-label="Gauche"><img class="icon" src="img/left.png" alt=""></a>
+  <a href="javascript:void(0)" id="viewRight" class="viewControlButton viewControlButton-4" aria-label="Droite"><img class="icon" src="img/right.png" alt=""></a>
+  <a href="javascript:void(0)" id="viewIn" class="viewControlButton viewControlButton-5" aria-label="Zoom avant"><img class="icon" src="img/plus.png" alt=""></a>
+  <a href="javascript:void(0)" id="viewOut" class="viewControlButton viewControlButton-6" aria-label="Zoom arrière"><img class="icon" src="img/minus.png" alt=""></a>
+
+  <!-- Vendor -->
+  <script src="vendor/screenfull.min.js"></script>
+  <script src="vendor/bowser.min.js"></script>
+  <script src="vendor/marzipano.js"></script>
+
+  <!-- Data + app -->
+  <script src="data.js"></script>
+  <script src="index.js"></script>
+
+  <!-- Right Drawer -->
+  <aside id="rightDrawer" class="rd" aria-hidden="true">
+    <div class="rd-header">
+      <img class="rd-logo" src="img/serenity.png" alt="Serenity Towers">
+      <div class="rd-title">Serenity Towers</div>
+    </div>
+
+    <nav class="rd-nav" aria-label="Menu Serenity">
+      <button class="rd-acc" type="button" data-rd-target="rdInfo">
+        Information
+        <span class="rd-chev" aria-hidden="true">▾</span>
+      </button>
+
+      <div id="rdInfo" class="rd-panel" hidden>
+        <div class="rd-contact-card">
+          <div class="rd-contact-item">
+            <div class="rd-contact-label">
+              <span class="rd-icon">📍</span>
+              <strong>Adresse</strong>
+            </div>
+            <div class="rd-contact-value">
+              1700 Boulevard Angrignon<br>
+              Lasalle, QC H8N0B8
+            </div>
+          </div>
+
+          <div class="rd-contact-item">
+            <div class="rd-contact-label">
+              <span class="rd-icon">☎</span>
+              <strong>Téléphone</strong>
+            </div>
+            <div class="rd-contact-value">514 823-1114</div>
+          </div>
+
+          <div class="rd-contact-item">
+            <div class="rd-contact-label">
+              <span class="rd-icon">✉</span>
+              <strong>Courriel</strong>
+            </div>
+            <div class="rd-contact-value">admin@mmelatti.com</div>
+          </div>
+        </div>
+      </div>
+
+      <a class="rd-linkbtn" href="commodites.html">
+        Commodités
+        <span class="rd-chev" aria-hidden="true">›</span>
+      </a>
+    </nav>
+
+    <div class="rd-footer">
+      <img class="rd-ni" src="img/NIsiglas.png" alt="NordImmersive">
+      <div class="rd-slogan">NordImmersive</div>
+      <div class="rd-slogan">- Expériences immersives 3D pour l’immobilier -</div>
+    </div>
+  </aside>
+
+  <button id="rightDrawerBtn" class="rd-fab" type="button" aria-controls="rightDrawer" aria-expanded="false">
+    Menu
+  </button>
+
+  <div id="rdOverlay" class="rd-overlay" hidden></div>
+
+  <script src="custom.js" defer></script>
+</body>
+</html>

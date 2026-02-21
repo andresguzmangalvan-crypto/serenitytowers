@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="fr-CA">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Serenity Towers — Commodités</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="custom.css">
+</head>
+
+<body class="commodites-page">
+
+  <!-- Top Bar -->
+ <div id="titleBar" class="ct-titlebar">
+  <div class="ct-bar">
+    <div class="ct-left"></div>
+
+    <div class="ct-center">
+      <div class="ct-brand">
+        <span class="ct-brandName">Serenity Towers</span>
+        <img class="ct-logo-inline" src="img/serenity.png" alt="Serenity Towers">
+      </div>
+    </div>
+  </div>
+</div>
+
+  <main class="c-wrap">
+    <section class="c-stage">
+
+      <header class="c-head">
+        <div>
+          <h1 id="amenityTitle" class="c-title">Piscine intérieure</h1>
+          <p id="amenitySub" class="c-sub">Espace lumineux et chauffé, accessible toute l’année.</p>
+        </div>
+
+        <a class="c-back" href="index.html" aria-label="Retour au tour">
+          ← Retour
+        </a>
+      </header>
+
+      <div class="c-main">
+        <figure class="c-figure" aria-label="Galerie des commodités">
+          <button id="prevBtn" class="c-arrow c-arrow-left" type="button" aria-label="Photo précédente">‹</button>
+
+          <img
+            id="amenityImage"
+            src="img/amenities/piscine.jpg"
+            alt="Piscine intérieure"
+            loading="eager"
+          />
+
+          <button id="nextBtn" class="c-arrow c-arrow-right" type="button" aria-label="Photo suivante">›</button>
+        </figure>
+      </div>
+
+      <div class="c-thumbs" id="thumbs" aria-label="Miniatures">
+        <button class="c-thumb is-active" type="button"
+          data-title="Piscine intérieure"
+          data-sub="Espace lumineux et chauffé, accessible toute l’année."
+          data-src="img/amenities/piscine.jpg"
+          data-alt="Piscine intérieure">
+          <img src="img/amenities/piscine_thumb.jpg" alt="Piscine intérieure (miniature)">
+          <span class="c-cap">Piscine</span>
+        </button>
+
+        <button class="c-thumb" type="button"
+          data-title="Salle d’entraînement"
+          data-sub="Équipements modernes pour cardio et musculation."
+          data-src="img/amenities/gym.jpg"
+          data-alt="Salle d’entraînement">
+          <img src="img/amenities/gym_thumb.jpg" alt="Salle d’entraînement (miniature)">
+          <span class="c-cap">Gym</span>
+        </button>
+
+        <button class="c-thumb" type="button"
+          data-title="Salon résidentiel"
+          data-sub="Un espace détente pour travailler ou recevoir."
+          data-src="img/amenities/salon.jpg"
+          data-alt="Salon résidentiel">
+          <img src="img/amenities/salon_thumb.jpg" alt="Salon résidentiel (miniature)">
+          <span class="c-cap">Salon</span>
+        </button>
+
+        <button class="c-thumb" type="button"
+          data-title="Simulateur de Golf"
+          data-sub="La Zone Simulateur est le lieu idéal pour passer un bon moment."
+          data-src="img/amenities/golf.jpg"
+          data-alt="Simulateur de Golf">
+          <img src="img/amenities/golf_thumb.jpg" alt="Simulateur de Golf (miniature)">
+          <span class="c-cap">Golf</span>
+        </button>
+
+        <button class="c-thumb" type="button"
+          data-title="Salle d'étude"
+          data-sub="Un espace calme pour lire, étudier et se concentrer."
+          data-src="img/amenities/studio.jpg"
+          data-alt="Salle d'étude">
+          <img src="img/amenities/studio_thumb.jpg" alt="Salle d'étude (miniature)">
+          <span class="c-cap">Étude</span>
+        </button>
+
+        <button class="c-thumb" type="button"
+          data-title="Sauna"
+          data-sub="Bain de vapeur sec, pour la détente."
+          data-src="img/amenities/sauna.jpg"
+          data-alt="Sauna">
+          <img src="img/amenities/sauna_thumb.jpg" alt="Sauna (miniature)">
+          <span class="c-cap">Sauna</span>
+        </button>
+
+        <button class="c-thumb" type="button"
+          data-title="Salle de jeux"
+          data-sub="Un espace convivial pour se divertir et socialiser."
+          data-src="img/amenities/jeux.jpg"
+          data-alt="Salle de jeux">
+          <img src="img/amenities/jeux_thumb.jpg" alt="Salle de jeux (miniature)">
+          <span class="c-cap">Jeux</span>
+        </button>
+      </div>
+
+    </section>
+  </main>
+
+  <script>
+    (function(){
+      const img = document.getElementById('amenityImage');
+      const title = document.getElementById('amenityTitle');
+      const sub = document.getElementById('amenitySub');
+      const thumbs = document.getElementById('thumbs');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+
+      if(!img || !title || !sub || !thumbs) return;
+
+      const items = Array.from(thumbs.querySelectorAll('.c-thumb'));
+      if(!items.length) return;
+
+      function getActiveIndex(){
+        const idx = items.findIndex(b => b.classList.contains('is-active'));
+        return idx >= 0 ? idx : 0;
+      }
+
+      function setActive(index, {scroll=true} = {}){
+        const i = (index + items.length) % items.length;
+        const btn = items[i];
+
+        items.forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+
+        const src = btn.getAttribute('data-src') || '';
+        const alt = btn.getAttribute('data-alt') || '';
+        const t = btn.getAttribute('data-title') || '';
+        const s = btn.getAttribute('data-sub') || '';
+
+        img.style.opacity = '0.15';
+        setTimeout(() => {
+          img.src = src;
+          img.alt = alt;
+          title.textContent = t;
+          sub.textContent = s;
+          img.style.opacity = '1';
+        }, 120);
+
+        if(scroll){
+          btn.scrollIntoView({behavior:'smooth', inline:'start', block:'nearest'});
+        }
+      }
+
+      thumbs.addEventListener('click', (e) => {
+        const btn = e.target.closest('.c-thumb');
+        if(!btn) return;
+        const idx = items.indexOf(btn);
+        if(idx >= 0) setActive(idx);
+      });
+
+      prevBtn?.addEventListener('click', () => setActive(getActiveIndex() - 1));
+      nextBtn?.addEventListener('click', () => setActive(getActiveIndex() + 1));
+
+      // Keyboard navigation
+      window.addEventListener('keydown', (e) => {
+        if(e.key === 'ArrowLeft') setActive(getActiveIndex() - 1, {scroll:true});
+        if(e.key === 'ArrowRight') setActive(getActiveIndex() + 1, {scroll:true});
+      });
+
+      // Ensure initial state is consistent
+      setActive(getActiveIndex(), {scroll:false});
+    })();
+  </script>
+
+</body>
+</html>
