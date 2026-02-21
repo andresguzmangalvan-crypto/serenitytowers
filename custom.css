@@ -819,3 +819,59 @@
 @media (prefers-reduced-motion: reduce){
   *{ transition: none !important; scroll-behavior: auto !important; }
 }
+
+/* =========================================================
+   FIX Mobile: Topbar premium vs Marzipano controls
+   ========================================================= */
+
+/* 1) Topbar: que NO se achique nunca */
+#titleBar{
+  box-sizing: border-box;
+  min-height: calc(var(--tb-h) + var(--safe-top));
+}
+
+.mobile #titleBar{
+  min-height: calc(var(--tb-h-mobile) + var(--safe-top));
+}
+
+/* Alineación estable del contenido dentro de la barra */
+.ni-topbar{
+  box-sizing: border-box;
+  height: 100%;
+  align-items: center;
+}
+
+/* IMPORTANTE: evita doble conteo del safe-top (ya está en la altura del titleBar) */
+.ni-topbar{
+  padding-top: calc(10px + var(--safe-top));
+}
+.mobile .ni-topbar{
+  padding-top: calc(12px + var(--safe-top));
+}
+
+/* 2) Marzipano view controls: en móvil van ABAJO y nunca pisan la topbar */
+.mobile .viewControlButton{
+  z-index: 9000;              /* por debajo de #titleBar (9999) */
+  top: auto !important;
+  bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+  right: calc(12px + var(--safe-right));
+}
+
+/* Si Marzipano usa posiciones escalonadas por clases -1..-6, mantenemos el stack vertical */
+.mobile .viewControlButton-1{ bottom: calc(14px + 5*52px + env(safe-area-inset-bottom, 0px)); }
+.mobile .viewControlButton-2{ bottom: calc(14px + 4*52px + env(safe-area-inset-bottom, 0px)); }
+.mobile .viewControlButton-3{ bottom: calc(14px + 3*52px + env(safe-area-inset-bottom, 0px)); }
+.mobile .viewControlButton-4{ bottom: calc(14px + 2*52px + env(safe-area-inset-bottom, 0px)); }
+.mobile .viewControlButton-5{ bottom: calc(14px + 1*52px + env(safe-area-inset-bottom, 0px)); }
+.mobile .viewControlButton-6{ bottom: calc(14px + 0*52px + env(safe-area-inset-bottom, 0px)); }
+
+/* 3) (Opcional pero recomendado) Controles un poco más compactos en móvil */
+.mobile .viewControlButton{
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+}
+
+/* 4) Seguridad: el topbar siempre por encima de todo */
+#titleBar{ z-index: 9999 !important; }
+
