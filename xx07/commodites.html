@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+  <meta charset="utf-8">
+  <title>Commodites - Serenity Towers</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <link rel="stylesheet" href="custom.css">
+</head>
+<body class="commodites-page">
+
+  <!-- Commodites Topbar -->
+  <div id="titleBar">
+    <div class="ct-bar">
+      <div></div>
+      <div class="ct-center">
+        <div class="ct-brand">
+          <img class="ct-logo-inline" src="img/serenity.png" alt="Serenity Towers">
+          <span class="ct-brandName">Serenity Towers</span>
+        </div>
+        <div class="ct-amenity" id="amenityTitle">Cafe</div>
+      </div>
+      <a class="ct-backTop" href="index.html">&#8592; Retour</a>
+    </div>
+  </div>
+
+  <div class="c-wrap">
+    <div class="c-stage">
+      <div class="c-head">
+        <div>
+          <strong>Commodites</strong>
+          <p class="c-sub">Explorez les commodites de cet espace</p>
+        </div>
+</div>
+
+      <div class="c-main">
+        <div class="c-figure">
+          <img id="mainImg" src="../img/amenities/cafe.jpg" alt="">
+          <button class="c-arrow c-arrow-left" onclick="prev()">&#8249;</button>
+          <button class="c-arrow c-arrow-right" onclick="next()">&#8250;</button>
+        </div>
+      </div>
+
+      <div class="c-thumbs" id="thumbStrip">
+        <div class="c-thumb is-active" onclick="goTo(0)">
+          <img src="../img/amenities/cafe.jpg" alt="Cafe">
+          <div class="c-cap">Cafe</div>
+        </div>
+        <div class="c-thumb" onclick="goTo(1)">
+          <img src="../img/amenities/golf.jpg" alt="Golf">
+          <div class="c-cap">Golf</div>
+        </div>
+        <div class="c-thumb" onclick="goTo(2)">
+          <img src="../img/amenities/gym.jpg" alt="Gym">
+          <div class="c-cap">Gym</div>
+        </div>
+        <div class="c-thumb" onclick="goTo(3)">
+          <img src="../img/amenities/jeux.jpg" alt="Jeux">
+          <div class="c-cap">Jeux</div>
+        </div>
+        <div class="c-thumb" onclick="goTo(4)">
+          <img src="../img/amenities/piscine.jpg" alt="Piscine">
+          <div class="c-cap">Piscine</div>
+        </div>
+        <div class="c-thumb" onclick="goTo(5)">
+          <img src="../img/amenities/salon.jpg" alt="Salon">
+          <div class="c-cap">Salon</div>
+        </div>
+        <div class="c-thumb" onclick="goTo(6)">
+          <img src="../img/amenities/sauna.jpg" alt="Sauna">
+          <div class="c-cap">Sauna</div>
+        </div>
+        <div class="c-thumb" onclick="goTo(7)">
+          <img src="../img/amenities/studio.jpg" alt="Studio">
+          <div class="c-cap">Studio</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var images = [{"src": "../img/amenities/cafe.jpg", "caption": "Cafe"}, {"src": "../img/amenities/golf.jpg", "caption": "Golf"}, {"src": "../img/amenities/gym.jpg", "caption": "Gym"}, {"src": "../img/amenities/jeux.jpg", "caption": "Jeux"}, {"src": "../img/amenities/piscine.jpg", "caption": "Piscine"}, {"src": "../img/amenities/salon.jpg", "caption": "Salon"}, {"src": "../img/amenities/sauna.jpg", "caption": "Sauna"}, {"src": "../img/amenities/studio.jpg", "caption": "Studio"}];
+    var idx = 0;
+
+    function goTo(i) {
+      idx = i;
+      document.getElementById("mainImg").src = images[i].src;
+      document.getElementById("amenityTitle").textContent = images[i].caption;
+      document.querySelectorAll(".c-thumb").forEach(function(t, j) {
+        t.classList.toggle("is-active", j === i);
+      });
+    }
+
+    function next() { goTo((idx + 1) % images.length); }
+    function prev() { goTo((idx - 1 + images.length) % images.length); }
+  
+    if (images.length) { goTo(0); }
+  </script>
+</body>
+</html>
