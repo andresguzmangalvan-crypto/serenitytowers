@@ -1,0 +1,101 @@
+#: locale=en
+
+## Action
+
+### URL
+WebFrame_22F9EEFF_0C1A_2293_4165_411D4444EFEA.url = https://maps.google.com/maps?output=embed&center=45.4469068,-73.6108132&z=17&q=1700+Angrignon+Blvd,+Montreal,+QC+H8N+0J2
+WebFrame_22F9EEFF_0C1A_2293_4165_411D4444EFEA_mobile.url = https://maps.google.com/maps?output=embed&center=45.4469068,-73.6108132&z=17&q=1700+Angrignon+Blvd,+Montreal,+QC+H8N+0J2
+
+## Hotspot
+
+### Text
+HotspotPanoramaOverlayTextImage_116FA2BD_01B9_9EAE_418C_07F95ADADC80.text = Tous les appareils sont inclus
+HotspotPanoramaOverlayTextImage_117FD76B_01BF_87AB_415D_2F37A127491F.text = Tous les appareils sont inclus
+
+## Media
+
+### Floorplan
+
+### Image
+imlevel_1CAFEE6F_01CA_89BF_417D_1F94124B58D1.url = media/map_1C47C6B3_01CE_86BE_414C_16D158036A87_en_0.webp
+imlevel_1CAFFE71_01CA_89A3_4191_24900DFCFD53.url = media/map_1C47C6B3_01CE_86BE_414C_16D158036A87_en_1.webp
+imlevel_1CAF2E72_01CA_89A1_415A_9F0D6EC72038.url = media/map_1C47C6B3_01CE_86BE_414C_16D158036A87_en_2.webp
+imlevel_1CAF0E73_01CA_89A7_418B_ECFB5E0A5CF0.url = media/map_1C47C6B3_01CE_86BE_414C_16D158036A87_en_3.webp
+imlevel_13196058_01DB_99E0_4182_2DABC6673EC2.url = media/panorama_16E322BD_004F_7EB3_4181_4B825C58F830_HS_7d5q4jcu_en.webp
+imlevel_123B1E57_01DB_89E0_4180_7727B6562C10.url = media/panorama_16FC8B39_004F_8FB0_4187_FB8B3270F4F3_HS_ufa3uktd_en.webp
+
+### Title
+album_10968F0B_004A_8756_417D_1E5B0285DD0A.label = Photo Album cafe
+panorama_10EE8336_004F_7FB1_415D_41DF029CC56C.label = balcon
+panorama_16E166C8_004F_86D1_4183_B2A2C3118724.label = bano
+photo_17779CC0_0049_8AD2_4189_FD5C1C8EAB18.label = building
+photo_17779CC0_0049_8AD2_4189_FD5C1C8EAB18.label = building
+album_10968F0B_004A_8756_417D_1E5B0285DD0A_0.label = cafe
+panorama_16E3E7BC_004F_86B1_418D_B63341CB04D7.label = centro sala
+panorama_16FC8B39_004F_8FB0_4187_FB8B3270F4F3.label = cocina2
+panorama_16E35EA4_004F_8951_4180_69B5EB6768C4.label = cuarto
+panorama_16E260A8_004F_9950_417B_6AFCB0CC4F9C.label = entrada
+photo_16307EC1_0049_86D5_418D_4F6009DCAD30.label = game room
+photo_16307EC1_0049_86D5_418D_4F6009DCAD30.label = game room
+album_10968F0B_004A_8756_417D_1E5B0285DD0A_1.label = golf
+album_10968F0B_004A_8756_417D_1E5B0285DD0A_2.label = gym
+panorama_16E322BD_004F_7EB3_4181_4B825C58F830.label = lavado
+panorama_16E3756F_004E_9BD0_4188_FE0A812F4DC3.label = pasillobano
+album_10968F0B_004A_8756_417D_1E5B0285DD0A_3.label = piscine
+map_1C47C6B3_01CE_86BE_414C_16D158036A87.label = plan xx10
+album_10968F0B_004A_8756_417D_1E5B0285DD0A_4.label = salon
+photo_16CD327E_0049_79AE_4190_C63D2FC5A4F4.label = sauna
+photo_16CD327E_0049_79AE_4190_C63D2FC5A4F4.label = sauna
+album_10968F0B_004A_8756_417D_1E5B0285DD0A_5.label = studio
+video_10B685A1_01B6_BB52_417C_455DD8D13ADB.label = video serenity
+
+### Video
+videolevel_1CCD5EE1_01D9_86A3_4191_5FABD7BE4DF7.url = media/video_10B685A1_01B6_BB52_417C_455DD8D13ADB_en.mp4
+videolevel_1CCD5EE1_01D9_86A3_4191_5FABD7BE4DF7.posterURL = media/video_10B685A1_01B6_BB52_417C_455DD8D13ADB_poster_en.jpg
+
+### Video Subtitles
+
+## Skin
+
+### Button
+Button_41E392A5_60B9_0A08_41BF_F6AAFA87203B.label = FLOORPLAN
+Button_41E3D2A5_60B9_0A08_41B7_737D4607570D.label = INFO
+Button_41E382A5_60B9_0A08_41D5_3FD188EFFDD4.label = LOCATION
+Button_41E3A2A5_60B9_0A08_41BE_55AB547304EE.label = PHOTOS
+Button_41E3B2A5_60B9_0A08_41BC_3A36B4FAF7B8.label = REALTOR
+Button_7105DB87_6486_29F6_41D4_688E669724F7.label = VIDEO
+
+### Image
+Image_05314BAF_3AA1_A6F2_41CB_86A11240FA50.url = skin/Image_05314BAF_3AA1_A6F2_41CB_86A11240FA50_en.png
+Image_05314BAF_3AA1_A6F2_41CB_86A11240FA50_mobile.url = skin/Image_05314BAF_3AA1_A6F2_41CB_86A11240FA50_mobile_en.png
+Image_062A182F_1140_E20B_41B0_9CB8FFD6AA5A.url = skin/Image_062A182F_1140_E20B_41B0_9CB8FFD6AA5A_en.jpg
+Image_06C5BBA5_1140_A63F_41A7_E6D01D4CC397.url = skin/Image_06C5BBA5_1140_A63F_41A7_E6D01D4CC397_en.jpg
+Image_41E322A5_60B9_0A08_41D0_4D34AC0B3F29.url = skin/Image_41E322A5_60B9_0A08_41D0_4D34AC0B3F29_en.png
+Image_5F7AC5AE_4B7D_6839_41B6_B78977B34EEB.url = skin/Image_5F7AC5AE_4B7D_6839_41B6_B78977B34EEB_en.jpg
+Image_708E5D5B_6049_8654_41CD_519E896C7C7C.url = skin/Image_708E5D5B_6049_8654_41CD_519E896C7C7C_en.png
+Image_718C71CD_60B6_E5E3_41B9_105D7970318F.url = skin/Image_718C71CD_60B6_E5E3_41B9_105D7970318F_en.jpg
+Image_71BC9046_6386_3134_41D3_6556300F7EB8.url = skin/Image_71BC9046_6386_3134_41D3_6556300F7EB8_en.png
+Image_71EFD890_6382_112C_41D1_2BC7486A1F2D.url = skin/Image_71EFD890_6382_112C_41D1_2BC7486A1F2D_en.jpg
+Image_731CA57E_60BF_A2A1_4190_01076897586C.url = skin/Image_731CA57E_60BF_A2A1_4190_01076897586C_en.jpg
+Image_731CE57E_60BF_A2A1_41CC_3F43DCC7BC6F.url = skin/Image_731CE57E_60BF_A2A1_41CC_3F43DCC7BC6F_en.jpg
+
+### Label
+Label_78B4B7B3_61C8_8E05_41D7_699A633A63FE.text = Commodités
+Label_0E9CEE5D_36F3_E64E_419C_5A94FA5D3CA1_mobile.text = Serenity Towers
+Label_6FDFD86C_6048_8E4C_417C_5AB2840EC8EF.text = Serenity Towers
+Label_0E9CEE5D_36F3_E64E_419C_5A94FA5D3CA1.text = Unit - xx10
+Label_0C5F13A8_3BA0_A6FF_41BD_E3D21CFCE151_mobile.text = Unit-xx10
+
+### Multiline Text
+HTMLText_718FA1CD_60B6_E5E3_41D3_6335BDF289A6.html = <div style="text-align:left; color:#000; "><DIV STYLE="text-align:center;font-size:6.666666666666666vmin;"><SPAN STYLE="display:inline-block; letter-spacing:0vmin; white-space:pre-wrap;color:#000000;font-family:Arial, Helvetica, sans-serif;"><SPAN STYLE="font-size:6.67vmin;"><B>A HOLISTIC ENVIRONMENT, THOUGHTFULLY CRAFTED</B></SPAN></SPAN></DIV><p STYLE="margin:0; line-height:9.17vmin;"><BR STYLE="display:inline-block; letter-spacing:0vmin; white-space:pre-wrap;color:#000000;font-size:3.33vmin;font-family:Arial, Helvetica, sans-serif;"/></p><p STYLE="margin:0; line-height:3.33vmin;"><BR STYLE="display:inline-block; letter-spacing:0vmin; white-space:pre-wrap;color:#000000;font-size:3.33vmin;font-family:Arial, Helvetica, sans-serif;"/></p><DIV STYLE="text-align:justify;font-size:3.888888888888888vmin;"><SPAN STYLE="display:inline-block; letter-spacing:0vmin; white-space:pre-line;color:#000000;font-family:Arial, Helvetica, sans-serif;"><SPAN STYLE="color:#333333;font-size:3.89vmin;font-family:Tahoma, Geneva, sans-serif;">The Serenity Towers project is the ultimate new experience. It is more than just another real estate development in the city, it is the realization of M. Melatti Inc.'s vision to create the highest standards of living.</SPAN><SPAN STYLE="font-size:3.61vmin;"> </SPAN></SPAN></DIV></div>
+HTMLText_58B95904_4B8D_59E9_41CB_E13BC14D6BFE.html = <div style="text-align:left; color:#000; "><DIV STYLE="text-align:center;font-size:30px;"><SPAN STYLE="display:inline-block; letter-spacing:0px; white-space:pre-wrap;color:#000000;font-family:Arial, Helvetica, sans-serif;"><SPAN STYLE="font-size:30px;"><B>A HOLISTIC ENVIRONMENT, THOUGHTFULLY CRAFTED</B></SPAN></SPAN></DIV><p STYLE="margin:0; line-height:33px;"><BR STYLE="display:inline-block; letter-spacing:0px; white-space:pre-wrap;color:#000000;font-size:12px;font-family:Arial, Helvetica, sans-serif;"/></p><p STYLE="margin:0; line-height:12px;"><BR STYLE="display:inline-block; letter-spacing:0px; white-space:pre-wrap;color:#000000;font-size:12px;font-family:Arial, Helvetica, sans-serif;"/></p><DIV STYLE="text-align:justify;font-size:14px;"><SPAN STYLE="display:inline-block; letter-spacing:0px; white-space:pre-line;color:#000000;font-family:Arial, Helvetica, sans-serif;"><SPAN STYLE="color:#333333;font-size:14px;font-family:Tahoma, Geneva, sans-serif;">The Serenity Towers project is the ultimate new experience. It is more than just another real estate development in the city, it is the realization of M. Melatti Inc.'s vision to create the highest standards of living.</SPAN></SPAN></DIV></div>
+HTMLText_731CF57E_60BF_A2A1_41D7_B81B17089B91.html = <div style="text-align:left; color:#000; "><p STYLE="margin:0; line-height:8.47vmin;"><BR STYLE="display:inline-block; letter-spacing:0vmin; white-space:pre-wrap;color:#000000;font-size:1.09vmin;font-family:Arial, Helvetica, sans-serif;"/></p><DIV STYLE="text-align:left;font-size:5.28vmin;"><SPAN STYLE="display:inline-block; letter-spacing:0vmin; white-space:pre-wrap;color:#000000;font-family:Arial, Helvetica, sans-serif;"><SPAN STYLE="font-size:5.28vmin;font-family:'Montserrat';">Book a Visit</SPAN></SPAN></DIV><p STYLE="margin:0; line-height:5.28vmin;"><BR STYLE="display:inline-block; letter-spacing:0vmin; white-space:pre-wrap;color:#000000;font-size:1.09vmin;font-family:Arial, Helvetica, sans-serif;"/></p><DIV STYLE="text-align:left;font-size:3.61111111111111vmin;"><SPAN STYLE="display:inline-block; letter-spacing:0vmin; white-space:pre-wrap;color:#000000;font-family:Arial, Helvetica, sans-serif;"><SPAN STYLE="font-size:3.61vmin;">We're always here for you. Please get in touch and let us help you with any questions, comments or concerns.</SPAN></SPAN></DIV><p STYLE="margin:0; line-height:4.15vmin;"><BR STYLE="display:inline-block; letter-spacing:0vmin; white-space:pre-wrap;color:#000000;font-size:1.09vmin;font-family:Arial, Helvetica, sans-serif;"/></p><DIV STYLE="text-align:left;font-size:3.8900000000000006vmin;"><SPAN STYLE="display:inline-block; letter-spacing:0vmin; white-space:pre-wrap;color:#000000;font-family:Arial, Helvetica, sans-serif;"><SPAN STYLE="color:#666666;font-size:3.89vmin;font-family:'Montserrat';">Contact Us</SPAN></SPAN></DIV><p STYLE="margin:0; line-height:3.89vmin;"><BR STYLE="display:inline-block; letter-spacing:0vmin; white-space:pre-wrap;color:#000000;font-size:1.09vmin;font-family:Arial, Helvetica, sans-serif;"/></p><DIV STYLE="text-align:left;font-size:3.8900000000000006vmin;"><SPAN STYLE="display:inline-block; letter-spacing:0vmin; white-space:pre-wrap;color:#000000;font-family:Arial, Helvetica, sans-serif;"><SPAN STYLE="color:#666666;font-size:3.89vmin;font-family:'Montserrat';">(514) 823-1114</SPAN></SPAN></DIV><DIV STYLE="text-align:left;font-size:3.8900000000000006vmin;"><SPAN STYLE="display:inline-block; letter-spacing:0vmin; white-space:pre-wrap;color:#000000;font-family:Arial, Helvetica, sans-serif;"><SPAN STYLE="color:#666666;font-size:3.89vmin;font-family:'Montserrat';">admin@mmelatti.com</SPAN></SPAN></DIV><p STYLE="margin:0; line-height:3.89vmin;"><BR STYLE="display:inline-block; letter-spacing:0vmin; white-space:pre-wrap;color:#000000;font-size:1.09vmin;font-family:Arial, Helvetica, sans-serif;"/></p><DIV STYLE="text-align:left;font-size:3.8900000000000006vmin;"><SPAN STYLE="display:inline-block; letter-spacing:0vmin; white-space:pre-wrap;color:#000000;font-family:Arial, Helvetica, sans-serif;"><SPAN STYLE="color:#666666;font-size:3.89vmin;font-family:'Montserrat';">serenitytowers.ca</SPAN></SPAN></DIV><p STYLE="margin:0; line-height:1.09vmin;"><BR STYLE="display:inline-block; letter-spacing:0vmin; white-space:pre-wrap;color:#000000;font-size:1.09vmin;font-family:Arial, Helvetica, sans-serif;"/></p><p STYLE="margin:0; line-height:1.09vmin;"><BR STYLE="display:inline-block; letter-spacing:0vmin; white-space:pre-wrap;color:#000000;font-size:1.09vmin;font-family:Arial, Helvetica, sans-serif;"/></p></div>
+HTMLText_0B4B0DC1_11C0_6277_41A4_201A5BB3F7AE.html = <div style="text-align:left; color:#000; "><p STYLE="margin:0; line-height:2.07vh;"><BR STYLE="display:inline-block; letter-spacing:0vh; white-space:pre-wrap;color:#000000;font-size:1.2vh;font-family:Arial, Helvetica, sans-serif;"/></p><DIV STYLE="text-align:left;font-size:1.857923497267759vh;"><SPAN STYLE="display:inline-block; letter-spacing:0vh; white-space:pre-wrap;color:#000000;font-family:Arial, Helvetica, sans-serif;"><SPAN STYLE="font-size:1.86vh;font-family:'Montserrat';"><B>We're always here for you. Please get in touch and let us help you with any questions, comments or concerns</B></SPAN></SPAN></DIV><p STYLE="margin:0; line-height:1.2vh;"><BR STYLE="display:inline-block; letter-spacing:0vh; white-space:pre-wrap;color:#000000;font-size:1.2vh;font-family:Arial, Helvetica, sans-serif;"/></p><p STYLE="margin:0; line-height:1.2vh;"><BR STYLE="display:inline-block; letter-spacing:0vh; white-space:pre-wrap;color:#000000;font-size:1.2vh;font-family:Arial, Helvetica, sans-serif;"/></p><p STYLE="margin:0; line-height:1.2vh;"><BR STYLE="display:inline-block; letter-spacing:0vh; white-space:pre-wrap;color:#000000;font-size:1.2vh;font-family:Arial, Helvetica, sans-serif;"/></p><DIV STYLE="text-align:left;font-size:1.530054644808743vh;"><SPAN STYLE="display:inline-block; letter-spacing:0vh; white-space:pre-wrap;color:#000000;font-family:Arial, Helvetica, sans-serif;"><SPAN STYLE="color:#999999;font-size:1.53vh;font-family:'Montserrat';"><B>Contact Us</B></SPAN></SPAN></DIV><p STYLE="margin:0; line-height:1.53vh;"><BR STYLE="display:inline-block; letter-spacing:0vh; white-space:pre-wrap;color:#000000;font-size:1.2vh;font-family:Arial, Helvetica, sans-serif;"/></p><DIV STYLE="text-align:left;font-size:1.530054644808743vh;"><SPAN STYLE="display:inline-block; letter-spacing:0vh; white-space:pre-wrap;color:#000000;font-family:Arial, Helvetica, sans-serif;"><SPAN STYLE="color:#999999;font-size:1.53vh;font-family:'Montserrat';"><B>(514) 823-1114</B></SPAN></SPAN></DIV><DIV STYLE="text-align:left;font-size:1.530054644808743vh;"><SPAN STYLE="display:inline-block; letter-spacing:0vh; white-space:pre-wrap;color:#000000;font-family:Arial, Helvetica, sans-serif;"><SPAN STYLE="color:#999999;font-size:1.53vh;font-family:'Montserrat';"><B>admin@mmelatti.com</B></SPAN></SPAN></DIV><p STYLE="margin:0; line-height:1.53vh;"><BR STYLE="display:inline-block; letter-spacing:0vh; white-space:pre-wrap;color:#000000;font-size:1.2vh;font-family:Arial, Helvetica, sans-serif;"/></p><DIV STYLE="text-align:left;font-size:1.530054644808743vh;"><SPAN STYLE="display:inline-block; letter-spacing:0vh; white-space:pre-wrap;color:#000000;font-family:Arial, Helvetica, sans-serif;"><SPAN STYLE="color:#999999;font-size:1.53vh;font-family:'Montserrat';"><B>Location</B></SPAN></SPAN></DIV><p STYLE="margin:0; line-height:1.53vh;"><BR STYLE="display:inline-block; letter-spacing:0vh; white-space:pre-wrap;color:#000000;font-size:1.2vh;font-family:Arial, Helvetica, sans-serif;"/></p><DIV STYLE="text-align:left;font-size:1.530054644808743vh;"><SPAN STYLE="display:inline-block; letter-spacing:0vh; white-space:pre-wrap;color:#000000;font-family:Arial, Helvetica, sans-serif;"><SPAN STYLE="color:#999999;font-size:1.53vh;font-family:'Montserrat';"><B>1700 Blvd. Angrignon</B></SPAN></SPAN></DIV><DIV STYLE="text-align:left;font-size:1.530054644808743vh;"><SPAN STYLE="display:inline-block; letter-spacing:0vh; white-space:pre-wrap;color:#000000;font-family:Arial, Helvetica, sans-serif;"><SPAN STYLE="color:#999999;font-size:1.53vh;font-family:'Montserrat';"><B>LaSalle, Qc H8N 0J2</B></SPAN></SPAN></DIV><p STYLE="margin:0; line-height:1.2vh;"><BR STYLE="display:inline-block; letter-spacing:0vh; white-space:pre-wrap;color:#000000;font-size:1.2vh;font-family:Arial, Helvetica, sans-serif;"/></p><p STYLE="margin:0; line-height:1.2vh;"><BR STYLE="display:inline-block; letter-spacing:0vh; white-space:pre-wrap;color:#000000;font-size:1.2vh;font-family:Arial, Helvetica, sans-serif;"/></p><p STYLE="margin:0; line-height:1.2vh;"><BR STYLE="display:inline-block; letter-spacing:0vh; white-space:pre-wrap;color:#000000;font-size:1.2vh;font-family:Arial, Helvetica, sans-serif;"/></p></div>
+HTMLText_0B42C466_11C0_623D_4193_9FAB57A5AC33.html = <div style="text-align:left; color:#000; "><DIV STYLE="text-align:left;font-size:3.7000000000000006vh;"><SPAN STYLE="display:inline-block; letter-spacing:0vh; white-space:pre-wrap;color:#000000;font-family:Arial, Helvetica, sans-serif;"><SPAN STYLE="font-size:3.7vh;font-family:'Montserrat';"><B>Book a Visit</B></SPAN></SPAN></DIV></div>
+
+## Tour
+
+### Description
+
+### Title
+tour.name = Unit-xx10
